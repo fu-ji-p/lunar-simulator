@@ -44,24 +44,6 @@ export function SpaceBackground() {
         <circle key={i} cx={s.x} cy={s.y} r={s.r} fill="white" opacity={s.opacity} />
       ))}
 
-      {/* Earth (partially visible, top-left) */}
-      <defs>
-        <radialGradient id="earthGrad" cx="50%" cy="50%">
-          <stop offset="0%" stopColor="#2563EB" />
-          <stop offset="60%" stopColor="#1E40AF" />
-          <stop offset="100%" stopColor="#1E3A8A" />
-        </radialGradient>
-        <clipPath id="earthClip">
-          <rect x="0" y="0" width="90" height="120" />
-        </clipPath>
-      </defs>
-      <circle cx="45" cy="55" r="80" fill="url(#earthGrad)" clipPath="url(#earthClip)" />
-      {/* Earth cloud bands */}
-      <ellipse cx="70" cy="20" rx="30" ry="6" fill="white" opacity="0.2" clipPath="url(#earthClip)" />
-      <ellipse cx="50" cy="55" rx="40" ry="5" fill="white" opacity="0.15" clipPath="url(#earthClip)" />
-      {/* Earth glow */}
-      <circle cx="45" cy="55" r="82" fill="none" stroke="#3B82F6" strokeWidth="3" opacity="0.3" clipPath="url(#earthClip)" />
-
       {/* Sun rays (top-right area) */}
       <defs>
         <radialGradient id="sunGlow" cx="100%" cy="0%">
