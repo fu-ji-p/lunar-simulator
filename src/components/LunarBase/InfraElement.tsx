@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import type { InfraElement as InfraElementType } from '../../data/infrastructure';
 import { PHASES } from '../../data/phases';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { INFRA_PARTNERS, PARTNERS } from '../../data/partners';
 
 // Convert 0-100 percent position to SVG coordinates
 // Moon surface area: x: 0-1000, y: 300-580
@@ -26,6 +27,12 @@ const CATEGORY_COLORS: Record<string, string> = {
   communication: '#6366F1',
 };
 
+// Partner badge constants
+const BADGE_W = 16;
+const BADGE_H = 7;
+const BADGE_GAP = 2;
+const BADGE_MAX = 3;
+
 export function InfraElementComponent({ infra }: Props) {
   const { currentPhase, selectedInfraId, selectInfra } = useSimulatorStore();
   const phase = PHASES.find(p => p.id === currentPhase)!;
@@ -37,6 +44,14 @@ export function InfraElementComponent({ infra }: Props) {
   // Scale radius based on real-world size. Base r=16 = standard unit.
   const r = Math.round(16 * (infra.displaySize ?? 1));
   const fontSize = Math.max(7, Math.round(13 * Math.min(infra.displaySize ?? 1, 1.4)));
+
+  // Partner badges
+  const partnerKeys = INFRA_PARTNERS[infra.id] ?? [];
+  const shownKeys = partnerKeys.slice(0, BADGE_MAX);
+  const extraCount = partnerKeys.length - shownKeys.length;
+  const totalBadgeW = shownKeys.length * BADGE_W + (shownKeys.length - 1) * BADGE_GAP + (extraCount > 0 ? BADGE_GAP + 18 : 0);
+  const badgeStartX = x - totalBadgeW / 2;
+  const badgeY = y + r + 14;
 
   return (
     <motion.g
@@ -106,6 +121,64 @@ export function InfraElementComponent({ infra }: Props) {
       >
         {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
       </text>
+
+      {/* Partner badges */}
+      {shownKeys.map((key, i) => {
+        const partner = PARTNERS[key];
+        const bx = badgeStartX + i * (BADGE_W + BADGE_GAP);
+        return (
+          <g key={key}>
+            <rect
+              x={bx} y={badgeY}
+              width={BADGE_W} height={BADGE_H}
+              rx={2}
+              fill={partner.color}
+              fillOpacity={0.22}
+              stroke={partner.color}
+              strokeOpacity={0.6}
+              strokeWidth={0.5}
+            />
+            <text
+              x={bx + BADGE_W / 2}
+              y={badgeY + BADGE_H / 2 + 0.5}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill={partner.color}
+              fontSize="5"
+              fontFamily="monospace"
+            >
+              {key === 'Private' ? '民間' : key}
+            </text>
+          </g>
+        );
+      })}
+      {/* "+N more" badge */}
+      {extraCount > 0 && (
+        <g>
+          <rect
+            x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP)}
+            y={badgeY}
+            width={18} height={BADGE_H}
+            rx={2}
+            fill="#374151"
+            fillOpacity={0.8}
+            stroke="#6B7280"
+            strokeOpacity={0.5}
+            strokeWidth={0.5}
+          />
+          <text
+            x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP) + 9}
+            y={badgeY + BADGE_H / 2 + 0.5}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="#9CA3AF"
+            fontSize="5"
+            fontFamily="monospace"
+          >
+            +{extraCount}
+          </text>
+        </g>
+      )}
     </motion.g>
   );
 }

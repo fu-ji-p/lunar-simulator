@@ -2,6 +2,7 @@ import { ChevronLeft, BookOpen } from 'lucide-react';
 import type { InfraElement } from '../../data/infrastructure';
 import { useSimulatorStore } from '../../store/simulatorStore';
 import { Badge } from '../UI/Badge';
+import { INFRA_PARTNERS, PARTNERS } from '../../data/partners';
 
 interface Props {
   infra: InfraElement;
@@ -9,6 +10,7 @@ interface Props {
 
 export function ElementDetail({ infra }: Props) {
   const { selectInfra } = useSimulatorStore();
+  const partnerKeys = INFRA_PARTNERS[infra.id] ?? [];
 
   return (
     <div className="space-y-4">
@@ -36,6 +38,32 @@ export function ElementDetail({ infra }: Props) {
         </div>
         <p className="text-[#9CA3AF] text-xs mt-2 leading-relaxed">{infra.description}</p>
       </div>
+
+      {/* International Partners */}
+      {partnerKeys.length > 0 && (
+        <div className="bg-[#1F2937] rounded p-3">
+          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-2">国際パートナー</h3>
+          <div className="flex flex-wrap gap-1.5">
+            {partnerKeys.map(key => {
+              const p = PARTNERS[key];
+              return (
+                <div
+                  key={key}
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium"
+                  style={{
+                    backgroundColor: p.color + '22',
+                    border: `1px solid ${p.color}55`,
+                    color: p.color,
+                  }}
+                >
+                  <span>{p.flag}</span>
+                  <span>{p.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Details */}
       <DetailSection title="目的・役割" content={infra.detail.purpose} />
