@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { INDUSTRIES } from '../../data/industries';
-import { PHASES } from '../../data/phases';
-import type { PhaseId } from '../../data/phases';
+import { useSimulatorStore } from '../../store/simulatorStore';
 import { IndustryCard } from './IndustryCard';
 import { EconomicPanel } from './EconomicPanel';
 
@@ -11,18 +9,11 @@ const ZONES = [
   { key: 'lunar_surface', label: '月面（露出・与圧）', icon: '🌕', description: '月面での産業活動' },
 ] as const;
 
-const PHASE_LABELS: Record<PhaseId, string> = {
-  phase1: 'P1 (2020年代)',
-  phase2: 'P2 (2030前半)',
-  phase3: 'P3 (2030後半〜)',
-  phase4: 'P4 (2040年代)',
-};
-
 export function IndustryView() {
-  const [filterPhase, setFilterPhase] = useState<number | null>(null);
+  const { industryFilter } = useSimulatorStore();
 
-  const filteredIndustries = filterPhase
-    ? INDUSTRIES.filter(i => i.phase <= filterPhase)
+  const filteredIndustries = industryFilter !== null
+    ? INDUSTRIES.filter(i => i.phase <= industryFilter)
     : INDUSTRIES;
 
   return (
@@ -33,35 +24,8 @@ export function IndustryView() {
         <p className="text-[#9CA3AF] text-xs">JAXAシナリオ3.5節に基づく月面経済のロードマップ</p>
       </div>
 
-      {/* Economic scale panel */}
-      <EconomicPanel filterPhase={filterPhase} />
-
-      {/* Phase filter */}
-      <div className="flex gap-2 flex-wrap">
-        <button
-          onClick={() => setFilterPhase(null)}
-          className={`px-3 py-1 rounded text-xs transition-all ${
-            filterPhase === null ? 'bg-white text-black' : 'bg-white/10 text-[#9CA3AF] hover:bg-white/20'
-          }`}
-        >
-          全フェーズ
-        </button>
-        {PHASES.map(p => {
-          const num = parseInt(p.id.replace('phase', ''));
-          return (
-            <button
-              key={p.id}
-              onClick={() => setFilterPhase(num)}
-              className={`px-3 py-1 rounded text-xs transition-all ${
-                filterPhase === num ? 'text-black font-bold' : 'bg-white/10 text-[#9CA3AF] hover:bg-white/20'
-              }`}
-              style={filterPhase === num ? { backgroundColor: p.color } : {}}
-            >
-              {PHASE_LABELS[p.id]} まで
-            </button>
-          );
-        })}
-      </div>
+      {/* Economic scale panel — フェーズフィルターと連動 */}
+      <EconomicPanel filterPhase={industryFilter} />
 
       {/* Zones */}
       {ZONES.map(zone => {
