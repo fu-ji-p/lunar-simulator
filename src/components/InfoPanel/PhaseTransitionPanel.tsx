@@ -30,9 +30,6 @@ export function PhaseTransitionPanel({ currentPhase }: Props) {
 
   if (!transition) return null;
 
-  // Conditions in earlier phases are already "achieved"
-  const isAchieved = (phaseIndex: number) => phaseIndex < PHASES.findIndex(p => p.id === currentPhase);
-
   return (
     <div className="bg-[#1F2937] rounded overflow-hidden">
       {/* Header — toggle open/close */}
