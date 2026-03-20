@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function PhaseTransitionPanel({ currentPhase }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [expandedCondition, setExpandedCondition] = useState<number | null>(null);
   const { selectInfra } = useSimulatorStore();
 
