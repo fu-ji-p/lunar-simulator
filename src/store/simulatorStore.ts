@@ -4,14 +4,14 @@ import type { PhaseId } from '../data/phases';
 interface SimulatorStore {
   currentPhase: PhaseId;
   selectedInfraId: string | null;
-  activeView: 'base' | 'industry';
+  activeView: 'base' | 'industry' | 'health';
   isAnimating: boolean;
   showCorrelations: boolean;
   showResourceOverlay: boolean;
 
   setPhase: (phase: PhaseId) => void;
   selectInfra: (id: string | null) => void;
-  setView: (view: 'base' | 'industry') => void;
+  setView: (view: 'base' | 'industry' | 'health') => void;
   setAnimating: (val: boolean) => void;
   toggleCorrelations: () => void;
   toggleResourceOverlay: () => void;

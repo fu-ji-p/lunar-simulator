@@ -39,6 +39,17 @@ export function Header() {
         >
           産業ビジョン
         </button>
+        <button
+          onClick={() => setView('health')}
+          className={`px-4 py-1.5 rounded text-xs font-medium transition-all ${
+            activeView === 'health'
+              ? 'bg-blue-600 text-white'
+              : 'text-[#9CA3AF] hover:text-white hover:bg-white/10'
+          }`}
+          aria-pressed={activeView === 'health'}
+        >
+          クルー健康管理
+        </button>
       </nav>
     </header>
   );

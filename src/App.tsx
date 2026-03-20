@@ -5,6 +5,7 @@ import { LunarBaseView } from './components/LunarBase/LunarBaseView';
 import { InfoPanel } from './components/InfoPanel/InfoPanel';
 import { StatsBar } from './components/StatsBar';
 import { IndustryView } from './components/IndustryView/IndustryView';
+import { HealthView } from './components/HealthView/HealthView';
 import { useSimulatorStore } from './store/simulatorStore';
 
 function App() {
@@ -31,10 +32,15 @@ function App() {
               <InfoPanel />
             </div>
           </>
-        ) : (
+        ) : activeView === 'industry' ? (
           /* Industry view - full width */
           <div className="flex-1 overflow-hidden bg-[#111827]">
             <IndustryView />
+          </div>
+        ) : (
+          /* Health view - full width */
+          <div className="flex-1 overflow-hidden bg-[#111827]">
+            <HealthView />
           </div>
         )}
       </div>

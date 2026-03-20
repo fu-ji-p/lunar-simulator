@@ -3,6 +3,7 @@ import { INDUSTRIES } from '../../data/industries';
 import { PHASES } from '../../data/phases';
 import type { PhaseId } from '../../data/phases';
 import { IndustryCard } from './IndustryCard';
+import { EconomicPanel } from './EconomicPanel';
 
 const ZONES = [
   { key: 'earth', label: '地球', icon: '🌍', description: '宇宙開発で生まれた技術の地上展開' },
@@ -31,6 +32,9 @@ export function IndustryView() {
         <h2 className="font-orbitron text-white text-sm font-bold mb-1">産業ビジョン俯瞰</h2>
         <p className="text-[#9CA3AF] text-xs">JAXAシナリオ3.5節に基づく月面経済のロードマップ</p>
       </div>
+
+      {/* Economic scale panel */}
+      <EconomicPanel />
 
       {/* Phase filter */}
       <div className="flex gap-2 flex-wrap">
