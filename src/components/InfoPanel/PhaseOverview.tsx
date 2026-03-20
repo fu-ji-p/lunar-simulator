@@ -1,6 +1,7 @@
 import { PHASES } from '../../data/phases';
 import { useSimulatorStore } from '../../store/simulatorStore';
 import { MilestoneList } from './MilestoneList';
+import { PhaseTransitionPanel } from './PhaseTransitionPanel';
 
 export function PhaseOverview() {
   const { currentPhase } = useSimulatorStore();
@@ -45,6 +46,9 @@ export function PhaseOverview() {
       <div className="bg-[#1F2937] rounded p-3">
         <MilestoneList milestones={phase.milestones} />
       </div>
+
+      {/* Phase transition conditions */}
+      <PhaseTransitionPanel currentPhase={phase.id} />
 
       {/* Hint */}
       <p className="text-[#6B7280] text-[10px] text-center">
