@@ -34,6 +34,10 @@ export function InfraElementComponent({ infra }: Props) {
   const color = CATEGORY_COLORS[infra.category] || '#9CA3AF';
   const { x, y } = toSVG(infra.position);
 
+  // Scale radius based on real-world size. Base r=16 = standard unit.
+  const r = Math.round(16 * (infra.displaySize ?? 1));
+  const fontSize = Math.max(7, Math.round(13 * Math.min(infra.displaySize ?? 1, 1.4)));
+
   return (
     <motion.g
       key={`${infra.id}-${currentPhase}`}
@@ -50,7 +54,7 @@ export function InfraElementComponent({ infra }: Props) {
     >
       {/* Selection glow */}
       {isSelected && (
-        <circle cx={x} cy={y} r={22} fill={color} opacity={0.2} />
+        <circle cx={x} cy={y} r={r + 8} fill={color} opacity={0.2} />
       )}
 
       {/* New-in-phase pulse ring */}
@@ -58,12 +62,12 @@ export function InfraElementComponent({ infra }: Props) {
         <motion.circle
           cx={x}
           cy={y}
-          r={18}
+          r={r + 2}
           fill="none"
           stroke={color}
           strokeWidth="2"
-          initial={{ r: 14, opacity: 0.9 }}
-          animate={{ r: 26, opacity: 0 }}
+          initial={{ r: r - 2, opacity: 0.9 }}
+          animate={{ r: r + 12, opacity: 0 }}
           transition={{ duration: 2, repeat: 3, ease: 'easeOut' }}
         />
       )}
@@ -72,7 +76,7 @@ export function InfraElementComponent({ infra }: Props) {
       <circle
         cx={x}
         cy={y}
-        r={16}
+        r={r}
         fill={isSelected ? color : '#1F2937'}
         stroke={color}
         strokeWidth={isSelected ? 2 : 1.5}
@@ -82,9 +86,9 @@ export function InfraElementComponent({ infra }: Props) {
       {/* Emoji icon */}
       <text
         x={x}
-        y={y + 5}
+        y={y + Math.round(fontSize * 0.4)}
         textAnchor="middle"
-        fontSize="13"
+        fontSize={fontSize}
         style={{ userSelect: 'none' }}
       >
         {infra.emoji}
@@ -93,7 +97,7 @@ export function InfraElementComponent({ infra }: Props) {
       {/* Label */}
       <text
         x={x}
-        y={y + 26}
+        y={y + r + 10}
         textAnchor="middle"
         fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
         fontSize="8"

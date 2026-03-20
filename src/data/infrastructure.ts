@@ -16,6 +16,8 @@ export interface InfraElement {
   icon: string;
   emoji: string;
   position: { x: number; y: number };
+  /** Display scale factor. 1.0 = standard 16px radius circle. */
+  displaySize: number;
   description: string;
   detail: InfraDetail;
 }
@@ -38,6 +40,7 @@ export const INFRASTRUCTURE: InfraElement[] = [
     icon: 'Orbit',
     emoji: '🛸',
     position: { x: 50, y: 8 },
+    displaySize: 1.8,
     description: '月近傍の有人宇宙ステーション。地球と月面を結ぶ中継拠点。',
     detail: {
       purpose: '地球からの宇宙飛行士と物資を月面へ中継する有人拠点。月面着陸機のドッキング先。',
@@ -55,6 +58,7 @@ export const INFRASTRUCTURE: InfraElement[] = [
     icon: 'Orbit',
     emoji: '🛸',
     position: { x: 50, y: 8 },
+    displaySize: 1.8,
     description: '完成したGateway。月面活動の恒久的中継拠点として機能。',
     detail: {
       purpose: '月面活動の完全な中継基地。科学実験・居住・物資補給を一体的に行う。',
@@ -72,6 +76,7 @@ export const INFRASTRUCTURE: InfraElement[] = [
     icon: 'Rocket',
     emoji: '🚀',
     position: { x: 35, y: 25 },
+    displaySize: 1.3,
     description: 'GatewayとApolloから月面に往復する有人着陸船。',
     detail: {
       purpose: '月面とGatewayの間を宇宙飛行士が往復するための主要輸送手段。',
@@ -89,6 +94,7 @@ export const INFRASTRUCTURE: InfraElement[] = [
     icon: 'Radio',
     emoji: '📡',
     position: { x: 75, y: 15 },
+    displaySize: 0.85,
     description: '月裏側・極域と地球の通信を中継する衛星。',
     detail: {
       purpose: '月の極域（日照条件の悪い地域）や裏側での通信・測位を可能にする。',
@@ -106,6 +112,7 @@ export const INFRASTRUCTURE: InfraElement[] = [
     icon: 'Radio',
     emoji: '📡',
     position: { x: 75, y: 15 },
+    displaySize: 0.85,
     description: '複数衛星と月面中継局からなる月全域通信・測位インフラ。',
     detail: {
       purpose: '月面どこでも通信・測位（GPS相当）を可能にする。自動ロボットの遠隔操作にも不可欠。',
@@ -124,7 +131,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'habitat',
     icon: 'Home',
     emoji: '🏠',
-    position: { x: 50, y: 60 },
+    position: { x: 56, y: 52 },
+    displaySize: 1.3,
     description: '月南極付近に設置された初期居住モジュール。4名が1〜2週間滞在可能。',
     detail: {
       purpose: '月面での短期有人滞在を実現。宇宙放射線・隕石から保護された与圧環境を提供。',
@@ -141,7 +149,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'habitat',
     icon: 'Building',
     emoji: '🏗️',
-    position: { x: 50, y: 60 },
+    position: { x: 57, y: 52 },
+    displaySize: 1.8,
     description: '複数モジュールを連結した10名規模の月面基地。定常運用フェーズ。',
     detail: {
       purpose: '10名のクルーが長期（数か月）滞在できる拠点。科学・産業活動の生活基盤。',
@@ -158,7 +167,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'habitat',
     icon: 'Building2',
     emoji: '🌆',
-    position: { x: 50, y: 55 },
+    position: { x: 57, y: 51 },
+    displaySize: 2.3,
     description: '40名が常駐する月面社会の中核拠点。居住・研究・産業が複合化。',
     detail: {
       purpose: '単なる基地を超え、医療・食料生産・レクリエーション・産業を含む「月面コミュニティ」として機能。',
@@ -175,7 +185,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'habitat',
     icon: 'HeartPulse',
     emoji: '🏥',
-    position: { x: 62, y: 68 },
+    position: { x: 65, y: 57 },
+    displaySize: 1.1,
     description: '緊急処置・長期医療・宇宙放射線対応を行う月面医療施設。',
     detail: {
       purpose: '40名コミュニティの健康管理。地球への緊急帰還が困難なため、月面での完結的医療が不可欠。',
@@ -194,7 +205,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'energy',
     icon: 'Sun',
     emoji: '☀️',
-    position: { x: 28, y: 55 },
+    position: { x: 82, y: 44 },
+    displaySize: 1.1,
     description: '月面基地への初期電力供給。ただし月夜（14日間）は発電不可。',
     detail: {
       purpose: '月面での電力供給。月の昼間（14日）は発電、月の夜（14日）は蓄電池で乗り切る。',
@@ -211,7 +223,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'energy',
     icon: 'Sun',
     emoji: '☀️',
-    position: { x: 25, y: 52 },
+    position: { x: 84, y: 43 },
+    displaySize: 1.4,
     description: '稜線（リッジ）に設置し、ほぼ連続発電できる大型太陽電池システム。',
     detail: {
       purpose: 'シャクルトンクレーター縁などの永久日照地帯に設置し、月夜の問題を回避。',
@@ -228,7 +241,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'energy',
     icon: 'Zap',
     emoji: '⚡',
-    position: { x: 22, y: 50 },
+    position: { x: 81, y: 41 },
+    displaySize: 1.7,
     description: '500kW規模の複合電力システム。太陽電池＋原子力の組み合わせ。',
     detail: {
       purpose: '40名コミュニティとISRUプラント・製造施設を含む大規模電力需要を満たす。',
@@ -245,7 +259,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'energy',
     icon: 'Atom',
     emoji: '⚛️',
-    position: { x: 20, y: 65 },
+    position: { x: 12, y: 62 },
+    displaySize: 0.9,
     description: '14日間の月夜でも安定電力を供給できる小型原子力電源。',
     detail: {
       purpose: '月の夜（14日間の暗闇）でも電力を途切れなく供給し、ISRU・生命維持を継続。',
@@ -264,7 +279,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'isru',
     icon: 'Search',
     emoji: '🔭',
-    position: { x: 60, y: 75 },
+    position: { x: 16, y: 78 },
+    displaySize: 0.8,
     description: 'JAXAとISROが共同開発する月南極水氷探査ローバー。',
     detail: {
       purpose: '月の永久影クレーター内に存在する水氷の量・形態・採掘可能性を調査する。',
@@ -281,7 +297,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'isru',
     icon: 'Factory',
     emoji: '🏭',
-    position: { x: 40, y: 70 },
+    position: { x: 34, y: 63 },
+    displaySize: 1.2,
     description: '月の水氷から水・酸素・水素を小規模生産する実証プラント。',
     detail: {
       purpose: '月の水資源を採掘・精製し、飲料水・呼吸用酸素・ロケット推薬の原料を生産する技術を実証。',
@@ -298,7 +315,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'isru',
     icon: 'Factory',
     emoji: '🏭',
-    position: { x: 40, y: 70 },
+    position: { x: 33, y: 63 },
+    displaySize: 1.5,
     description: '月面で水・推薬・酸素を本格的に量産するインフラ。',
     detail: {
       purpose: '地球からの輸送コストを劇的に削減。月で作った推薬でロケットを月から飛ばせる。',
@@ -315,7 +333,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'isru',
     icon: 'Fuel',
     emoji: '⛽',
-    position: { x: 35, y: 78 },
+    position: { x: 25, y: 70 },
+    displaySize: 1.3,
     description: '月面で生産したLH₂/LOXを着陸機・ローバーに充填する補給設備。',
     detail: {
       purpose: '月で作った燃料を月面の乗り物に補給。地球からの燃料輸送コストを大幅削減。',
@@ -334,7 +353,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'exploration',
     icon: 'MapPin',
     emoji: '🎯',
-    position: { x: 70, y: 72 },
+    position: { x: 74, y: 77 },
+    displaySize: 0.75,
     description: '2024年に世界初のピンポイント着陸を実現した日本の月探査機。',
     detail: {
       purpose: '誤差100m以内のピンポイント着陸技術を実証。将来の月探査の精密着陸の扉を開いた。',
@@ -351,7 +371,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'exploration',
     icon: 'Car',
     emoji: '🚙',
-    position: { x: 65, y: 62 },
+    position: { x: 69, y: 60 },
+    displaySize: 1.1,
     description: 'スペースシャトル2台分の大きさの移動型月面基地。',
     detail: {
       purpose: '与圧された居住スペースを持ち、宇宙服を脱いで数週間の長距離月面探査が可能。',
@@ -368,7 +389,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'exploration',
     icon: 'Wrench',
     emoji: '🤖',
-    position: { x: 55, y: 80 },
+    position: { x: 51, y: 70 },
+    displaySize: 0.9,
     description: 'レゴリスを用いた月面構造物の建設・整地を自律的に行うロボット群。',
     detail: {
       purpose: '人手をかけずに月面基地の拡張・整備を実施。着陸パッドの整地、覆土（遮蔽）作業など。',
@@ -385,7 +407,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'isru',
     icon: 'HardHat',
     emoji: '⛏️',
-    position: { x: 45, y: 82 },
+    position: { x: 21, y: 75 },
+    displaySize: 0.9,
     description: '月面のレゴリスや永久影クレーターの水氷を採掘するロボット。',
     detail: {
       purpose: 'ISRUプラントへの原料（水氷・レゴリス）を継続的に供給する無人採掘システム。',
@@ -404,7 +427,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'science',
     icon: 'Activity',
     emoji: '📊',
-    position: { x: 80, y: 70 },
+    position: { x: 85, y: 68 },
+    displaySize: 0.85,
     description: '月面4か所以上に設置し、月の内部構造を解明する地震観測網。',
     detail: {
       purpose: '月の地殻・マントル・核の構造を解明。将来の資源探査・基地建設場所選定にも活用。',
@@ -421,7 +445,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'science',
     icon: 'Telescope',
     emoji: '🔭',
-    position: { x: 82, y: 55 },
+    position: { x: 89, y: 51 },
+    displaySize: 1.0,
     description: 'ノイズのない月面から宇宙全体を観測する革命的な天文台。',
     detail: {
       purpose: '大気・電波雑音ゼロの月面（特に裏側）から、地球では不可能な宇宙観測を実現。',
@@ -438,7 +463,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'science',
     icon: 'FlaskConical',
     emoji: '⚗️',
-    position: { x: 72, y: 65 },
+    position: { x: 72, y: 63 },
+    displaySize: 1.0,
     description: '有人採取による高品質な月サンプルを地球へ持ち帰る施設・システム。',
     detail: {
       purpose: '月の起源・太陽系の歴史を解明する高価値サンプルを人の判断で採取し地球で分析。',
@@ -457,7 +483,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'industry',
     icon: 'Microscope',
     emoji: '🔬',
-    position: { x: 58, y: 65 },
+    position: { x: 48, y: 60 },
+    displaySize: 1.0,
     description: '月の低重力・放射線環境を活かした生物・医学研究施設と食料生産区画。',
     detail: {
       purpose: '月独自の環境で医薬品・新素材の研究開発。同時に宇宙農業で食料自給率を向上。',
@@ -474,7 +501,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'industry',
     icon: 'Cog',
     emoji: '⚙️',
-    position: { x: 43, y: 65 },
+    position: { x: 63, y: 64 },
+    displaySize: 1.3,
     description: '月の低重力・高真空環境を活かした宇宙向け高付加価値製造施設。',
     detail: {
       purpose: '地球では作れない新材料・デバイスを宇宙向けに月で製造し、宇宙産業に供給。',
@@ -491,7 +519,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'industry',
     icon: 'Hotel',
     emoji: '🏨',
-    position: { x: 55, y: 72 },
+    position: { x: 57, y: 65 },
+    displaySize: 1.2,
     description: '月面の景色・低重力体験・地球の出（Earthrise）観覧を提供する民間観光施設。',
     detail: {
       purpose: '月面観光という新産業の確立。民間資金の月面経済への投入を促進する。',
@@ -508,7 +537,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'industry',
     icon: 'Printer',
     emoji: '🖨️',
-    position: { x: 30, y: 72 },
+    position: { x: 44, y: 55 },
+    displaySize: 1.0,
     description: '月の土（レゴリス）を材料に、シェルター・インフラを現地で製造するシステム。',
     detail: {
       purpose: '地球から資材を輸送するコストを削減。月の資源だけで大型構造物を建設できる。',
@@ -525,7 +555,8 @@ export const INFRASTRUCTURE: InfraElement[] = [
     category: 'communication',
     icon: 'Wifi',
     emoji: '📶',
-    position: { x: 75, y: 55 },
+    position: { x: 77, y: 54 },
+    displaySize: 1.0,
     description: '月面全域をカバーする自律分散型通信・測位ネットワーク。',
     detail: {
       purpose: '人・ロボット・センサーが月面全域でシームレスに通信・位置把握できる環境を整備。',
