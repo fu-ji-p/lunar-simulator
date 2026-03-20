@@ -34,7 +34,7 @@ export function IndustryView() {
       </div>
 
       {/* Economic scale panel */}
-      <EconomicPanel />
+      <EconomicPanel filterPhase={filterPhase} />
 
       {/* Phase filter */}
       <div className="flex gap-2 flex-wrap">

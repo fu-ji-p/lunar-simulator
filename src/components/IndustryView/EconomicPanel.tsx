@@ -2,10 +2,19 @@ import { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { INVESTMENT_PHASES, MARKET_SEGMENTS, SPINOFF_INDUSTRIES } from '../../data/economics';
 
-export function EconomicPanel() {
+interface Props {
+  /** null = 全フェーズ表示, 1〜4 = そのフェーズまでをアクティブ表示 */
+  filterPhase: number | null;
+}
+
+export function EconomicPanel({ filterPhase }: Props) {
   const [expandedSpinoff, setExpandedSpinoff] = useState<string | null>(null);
 
   const maxInvestment = Math.max(...INVESTMENT_PHASES.map(p => p.totalBillionUSD));
+
+  // filterPhase が null の場合は全アクティブ
+  const isPhaseActive = (phaseNum: number) =>
+    filterPhase === null || phaseNum <= filterPhase;
 
   return (
     <div className="bg-[#1F2937] rounded-lg overflow-hidden border border-white/10">
@@ -27,42 +36,58 @@ export function EconomicPanel() {
             民間投資額の推移（累計・試算）
           </h3>
           <div className="space-y-3">
-            {INVESTMENT_PHASES.map(phase => (
-              <div key={phase.phaseLabel}>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
+            {INVESTMENT_PHASES.map((phase, i) => {
+              const phaseNum = i + 1;
+              const active = isPhaseActive(phaseNum);
+              const color = active ? phase.color : '#4B5563';
+
+              return (
+                <div
+                  key={phase.phaseLabel}
+                  style={{ opacity: active ? 1 : 0.4 }}
+                  className="transition-opacity duration-300"
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="text-[9px] font-spacemono font-bold"
+                        style={{ color }}
+                      >
+                        {phase.phaseLabel}
+                      </span>
+                      <span className="text-[9px] text-[#6B7280]">{phase.period}</span>
+                      <span
+                        className="text-[8px] px-1.5 py-0.5 rounded-full"
+                        style={{ backgroundColor: `${color}20`, color }}
+                      >
+                        {phase.driver}
+                      </span>
+                      {!active && (
+                        <span className="text-[8px] text-[#4B5563]">未到達</span>
+                      )}
+                    </div>
                     <span
-                      className="text-[9px] font-spacemono font-bold"
-                      style={{ color: phase.color }}
+                      className="text-xs font-spacemono font-bold"
+                      style={{ color }}
                     >
-                      {phase.phaseLabel}
-                    </span>
-                    <span className="text-[9px] text-[#6B7280]">{phase.period}</span>
-                    <span
-                      className="text-[8px] px-1.5 py-0.5 rounded-full"
-                      style={{ backgroundColor: `${phase.color}20`, color: phase.color }}
-                    >
-                      {phase.driver}
+                      ${phase.totalBillionUSD}B
                     </span>
                   </div>
-                  <span className="text-xs font-spacemono font-bold" style={{ color: phase.color }}>
-                    ${phase.totalBillionUSD}B
-                  </span>
+                  {/* Bar */}
+                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${(phase.totalBillionUSD / maxInvestment) * 100}%`,
+                        backgroundColor: color,
+                        opacity: active ? 0.85 : 0.3,
+                      }}
+                    />
+                  </div>
+                  <p className="text-[#6B7280] text-[9px] mt-1">{phase.keyMilestone}</p>
                 </div>
-                {/* Bar */}
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${(phase.totalBillionUSD / maxInvestment) * 100}%`,
-                      backgroundColor: phase.color,
-                      opacity: 0.85,
-                    }}
-                  />
-                </div>
-                <p className="text-[#6B7280] text-[9px] mt-1">{phase.keyMilestone}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <p className="text-[#4B5563] text-[9px] mt-2">
             ※ 複数の宇宙経済調査レポートおよびシナリオを参考にした概算値
@@ -75,39 +100,45 @@ export function EconomicPanel() {
             主要市場セグメント（Phase 4 想定規模）
           </h3>
           <div className="grid grid-cols-3 gap-2">
-            {MARKET_SEGMENTS.map(seg => (
-              <div
-                key={seg.name}
-                className="rounded-lg p-2.5 border text-center"
-                style={{
-                  borderColor: `${seg.color}35`,
-                  backgroundColor: `${seg.color}0D`,
-                }}
-              >
-                <div className="text-xl mb-1">{seg.icon}</div>
+            {MARKET_SEGMENTS.map(seg => {
+              const active = isPhaseActive(seg.phase);
+              const color = active ? seg.color : '#4B5563';
+
+              return (
                 <div
-                  className="text-[9px] text-[#D1D5DB] leading-snug mb-1 whitespace-pre-line"
+                  key={seg.name}
+                  className="rounded-lg p-2.5 border text-center transition-opacity duration-300"
+                  style={{
+                    borderColor: active ? `${seg.color}35` : '#374151',
+                    backgroundColor: active ? `${seg.color}0D` : '#1a2030',
+                    opacity: active ? 1 : 0.4,
+                  }}
                 >
-                  {seg.name}
+                  <div className="text-xl mb-1" style={{ filter: active ? 'none' : 'grayscale(1)' }}>
+                    {seg.icon}
+                  </div>
+                  <div className="text-[9px] text-[#D1D5DB] leading-snug mb-1 whitespace-pre-line">
+                    {seg.name}
+                  </div>
+                  <div
+                    className="font-spacemono text-sm font-bold"
+                    style={{ color }}
+                  >
+                    ${seg.billionUSD}B
+                  </div>
+                  <div
+                    className="text-[8px] px-1 py-0.5 rounded-full inline-block mt-1"
+                    style={{ backgroundColor: `${color}20`, color }}
+                  >
+                    P{seg.phase}〜
+                  </div>
                 </div>
-                <div
-                  className="font-spacemono text-sm font-bold"
-                  style={{ color: seg.color }}
-                >
-                  ${seg.billionUSD}B
-                </div>
-                <div
-                  className="text-[8px] px-1 py-0.5 rounded-full inline-block mt-1"
-                  style={{ backgroundColor: `${seg.color}20`, color: seg.color }}
-                >
-                  P{seg.phase}〜
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* ── 3. スピンオフ産業 ── */}
+        {/* ── 3. スピンオフ産業（常時表示） ── */}
         <div>
           <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
             地球へのスピンオフ産業
