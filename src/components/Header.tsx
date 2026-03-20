@@ -50,6 +50,18 @@ export function Header() {
         >
           クルー健康管理
         </button>
+        <button
+          onClick={() => setView('mars')}
+          className={`px-4 py-1.5 rounded text-xs font-medium transition-all ${
+            activeView === 'mars'
+              ? 'text-white'
+              : 'text-[#9CA3AF] hover:text-white hover:bg-white/10'
+          }`}
+          style={activeView === 'mars' ? { backgroundColor: '#F97316' } : {}}
+          aria-pressed={activeView === 'mars'}
+        >
+          🔴 火星展望
+        </button>
       </nav>
     </header>
   );

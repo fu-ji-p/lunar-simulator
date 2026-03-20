@@ -8,8 +8,8 @@ export function PhaseTimeline() {
     industryFilter, setIndustryFilter,
   } = useSimulatorStore();
 
-  // ── クルー健康管理タブでは非表示 ──────────────────────────────────────
-  if (activeView === 'health') return null;
+  // ── クルー健康管理・火星展望タブでは非表示 ───────────────────────────
+  if (activeView === 'health' || activeView === 'mars') return null;
 
   // ── 産業ビジョンタブ：全フェーズ + P1〜P4 フィルター ──────────────────
   if (activeView === 'industry') {
