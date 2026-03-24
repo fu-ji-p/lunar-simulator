@@ -25,14 +25,14 @@ export function GatewayLayer({ onSelectInfra }: Props) {
       {showGateway && (
         <ellipse
           cx="500"
-          cy="260"
-          rx="200"
-          ry="50"
+          cy="240"
+          rx="220"
+          ry="55"
           fill="none"
           stroke="#3B82F6"
           strokeWidth="0.5"
           strokeDasharray="8,6"
-          opacity="0.3"
+          opacity="0.25"
         />
       )}
 
@@ -48,39 +48,37 @@ export function GatewayLayer({ onSelectInfra }: Props) {
         >
           {/* Glow effect if selected */}
           {selectedInfraId === gatewayId && (
-            <circle cx="500" cy="48" r="28" fill="#3B82F6" opacity="0.15" />
+            <circle cx="500" cy="52" r="65" fill={gatewayFull ? '#8B5CF6' : '#3B82F6'} opacity="0.12" />
           )}
           {/* New pulse ring */}
           {isGatewayNew && (
             <motion.circle
               cx="500"
-              cy="48"
-              r="24"
+              cy="52"
+              r="30"
               fill="none"
               stroke={phase.color}
               strokeWidth="2"
-              initial={{ r: 16, opacity: 0.8 }}
-              animate={{ r: 28, opacity: 0 }}
+              initial={{ r: 20, opacity: 0.8 }}
+              animate={{ r: 55, opacity: 0 }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
-          {/* Station body - central hub */}
-          <rect x="488" y="42" width="24" height="12" rx="3" fill={gatewayFull ? '#8B5CF6' : '#3B82F6'} />
-          {/* Solar panels */}
-          <rect x="460" y="45" width="26" height="6" rx="1" fill="#FCD34D" opacity="0.9" />
-          <rect x="514" y="45" width="26" height="6" rx="1" fill="#FCD34D" opacity="0.9" />
-          {gatewayFull && (
-            <>
-              <rect x="452" y="41" width="12" height="14" rx="1" fill="#FCD34D" opacity="0.7" />
-              <rect x="536" y="41" width="12" height="14" rx="1" fill="#FCD34D" opacity="0.7" />
-            </>
-          )}
+          {/* CG Gateway station image */}
+          <image
+            href="/Gemini_Generated_Image_q5o078q5o078q5o0.png"
+            x="427"
+            y="5"
+            width="146"
+            height="95"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const, filter: gatewayFull ? 'drop-shadow(0 0 12px rgba(139,92,246,0.9)) brightness(1.1)' : 'drop-shadow(0 0 10px rgba(59,130,246,0.9)) brightness(1.05)' }}
+          />
+          {/* Invisible click overlay */}
+          <rect x="427" y="5" width="146" height="95" fill="transparent" />
           {/* Label */}
-          <text x="500" y="74" textAnchor="middle" fill="#E5E7EB" fontSize="9" fontFamily="sans-serif">
+          <text x="500" y="112" textAnchor="middle" fill="#E5E7EB" fontSize="9" fontFamily="sans-serif">
             {gatewayFull ? 'Gateway（完成）' : 'Gateway'}
-          </text>
-          <text x="500" y="83" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
-            🛸
           </text>
         </motion.g>
       )}
@@ -96,29 +94,33 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           aria-label="月中継衛星"
         >
           {selectedInfraId === relayId && (
-            <circle cx="750" cy="90" r="20" fill="#6366F1" opacity="0.15" />
+            <circle cx="750" cy="90" r="42" fill="#6366F1" opacity="0.12" />
           )}
           {isRelayNew && (
             <motion.circle
               cx="750"
               cy="90"
-              r="18"
+              r="20"
               fill="none"
               stroke={phase.color}
               strokeWidth="2"
-              initial={{ r: 12, opacity: 0.8 }}
-              animate={{ r: 22, opacity: 0 }}
+              initial={{ r: 14, opacity: 0.8 }}
+              animate={{ r: 36, opacity: 0 }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
-          {/* Satellite body */}
-          <rect x="744" y="84" width="12" height="12" rx="2" fill="#6366F1" />
-          {/* Antenna dish */}
-          <path d="M750,84 L750,76 L756,80 Z" fill="#9CA3AF" />
-          {/* Solar panels */}
-          <rect x="730" y="87" width="12" height="4" rx="1" fill="#FCD34D" opacity="0.9" />
-          <rect x="758" y="87" width="12" height="4" rx="1" fill="#FCD34D" opacity="0.9" />
-          <text x="750" y="106" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
+          {/* CG relay satellite image */}
+          <image
+            href="/Gemini_Generated_Image_9la2sg9la2sg9la2.png"
+            x="708"
+            y="52"
+            width="84"
+            height="84"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 8px rgba(99,102,241,0.9)) brightness(1.05)' }}
+          />
+          <rect x="708" y="52" width="84" height="84" fill="transparent" />
+          <text x="750" y="146" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
             📡 中継衛星
           </text>
         </motion.g>
@@ -135,28 +137,33 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           aria-label="有人月離着陸機"
         >
           {selectedInfraId === 'lunar_lander' && (
-            <circle cx="350" cy="250" r="20" fill="#F59E0B" opacity="0.15" />
+            <circle cx="350" cy="248" r="38" fill="#F59E0B" opacity="0.12" />
           )}
           {phase.newInPhase.includes('lunar_lander') && (
             <motion.circle
               cx="350"
-              cy="250"
-              r="18"
+              cy="248"
+              r="20"
               fill="none"
               stroke={phase.color}
               strokeWidth="2"
-              initial={{ r: 12, opacity: 0.8 }}
-              animate={{ r: 24, opacity: 0 }}
+              initial={{ r: 14, opacity: 0.8 }}
+              animate={{ r: 34, opacity: 0 }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
-          {/* Lander shape */}
-          <polygon points="350,238 344,256 356,256" fill="#F59E0B" />
-          <rect x="342" y="254" width="16" height="6" rx="1" fill="#D97706" />
-          {/* Landing legs */}
-          <line x1="342" y1="260" x2="336" y2="268" stroke="#9CA3AF" strokeWidth="1.5" />
-          <line x1="358" y1="260" x2="364" y2="268" stroke="#9CA3AF" strokeWidth="1.5" />
-          <text x="350" y="278" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
+          {/* CG lander image */}
+          <image
+            href="/Gemini_Generated_Image_cuyshcuyshcuyshc.png"
+            x="316"
+            y="210"
+            width="68"
+            height="90"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 10px rgba(245,158,11,0.9)) brightness(1.05)' }}
+          />
+          <rect x="316" y="210" width="68" height="90" fill="transparent" />
+          <text x="350" y="312" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
             🚀 着陸機
           </text>
         </motion.g>
@@ -166,13 +173,13 @@ export function GatewayLayer({ onSelectInfra }: Props) {
       {phase.activeInfraIds.includes('lunar_lander') && showGateway && (
         <line
           x1="350"
-          y1="250"
-          x2="488"
-          y2="48"
+          y1="248"
+          x2="490"
+          y2="100"
           stroke="#F59E0B"
           strokeWidth="0.5"
           strokeDasharray="5,8"
-          opacity="0.2"
+          opacity="0.25"
         />
       )}
 
