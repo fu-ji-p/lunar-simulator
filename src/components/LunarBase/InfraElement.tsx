@@ -27,6 +27,29 @@ const CATEGORY_COLORS: Record<string, string> = {
   communication: '#6366F1',
 };
 
+// CG image mapping: infra id → public image path
+const INFRA_CG_IMAGES: Record<string, string> = {
+  // Habitat
+  surface_habitat_s:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
+  surface_habitat_m:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
+  surface_habitat_l:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
+  // Energy
+  solar_power_s:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
+  solar_power_m:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
+  solar_power_l:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
+  nuclear_power:      '/Gemini_Generated_Image_gu2odqgu2odqgu2o.png',
+  // ISRU
+  lupex:              '/Gemini_Generated_Image_r4xis3r4xis3r4xi.png',
+  isru_pilot:         '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
+  isru_full:          '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
+  propellant_plant:   '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
+  mining_robot:       '/Gemini_Generated_Image_v0iw8fv0iw8fv0iw.png',
+  // Exploration
+  pressurized_rover:  '/Gemini_Generated_Image_umj65eumj65eumj6.png',
+  // Industry
+  biolab:             '/Gemini_Generated_Image_4ulfb34ulfb34ulf.png',
+};
+
 // Partner badge constants
 const BADGE_W = 16;
 const BADGE_H = 7;
@@ -52,6 +75,9 @@ export function InfraElementComponent({ infra }: Props) {
   const totalBadgeW = shownKeys.length * BADGE_W + (shownKeys.length - 1) * BADGE_GAP + (extraCount > 0 ? BADGE_GAP + 18 : 0);
   const badgeStartX = x - totalBadgeW / 2;
   const badgeY = y + r + 14;
+
+  const cgImage = INFRA_CG_IMAGES[infra.id];
+  const clipId = `cg-clip-${infra.id}`;
 
   return (
     <motion.g
@@ -87,27 +113,63 @@ export function InfraElementComponent({ infra }: Props) {
         />
       )}
 
-      {/* Background circle */}
-      <circle
-        cx={x}
-        cy={y}
-        r={r}
-        fill={isSelected ? color : '#1F2937'}
-        stroke={color}
-        strokeWidth={isSelected ? 2 : 1.5}
-        opacity={isSelected ? 0.95 : 0.85}
-      />
-
-      {/* Emoji icon */}
-      <text
-        x={x}
-        y={y + Math.round(fontSize * 0.4)}
-        textAnchor="middle"
-        fontSize={fontSize}
-        style={{ userSelect: 'none' }}
-      >
-        {infra.emoji}
-      </text>
+      {cgImage ? (
+        <>
+          {/* Clip path for circular CG icon */}
+          <defs>
+            <clipPath id={clipId}>
+              <circle cx={x} cy={y} r={r - 1} />
+            </clipPath>
+          </defs>
+          {/* Dark background so image edges don't bleed */}
+          <circle cx={x} cy={y} r={r} fill="#050A14" opacity={0.75} />
+          {/* CG image clipped to circle */}
+          <image
+            href={cgImage}
+            x={x - r}
+            y={y - r}
+            width={r * 2}
+            height={r * 2}
+            clipPath={`url(#${clipId})`}
+            preserveAspectRatio="xMidYMid slice"
+          />
+          {/* Colored border ring */}
+          <circle
+            cx={x} cy={y} r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth={isSelected ? 2.5 : 1.5}
+            opacity={isSelected ? 1 : 0.85}
+          />
+          {/* Selection inner highlight */}
+          {isSelected && (
+            <circle cx={x} cy={y} r={r - 1} fill={color} opacity={0.18} />
+          )}
+        </>
+      ) : (
+        <>
+          {/* Background circle (emoji fallback) */}
+          <circle
+            cx={x}
+            cy={y}
+            r={r}
+            fill={isSelected ? color : '#1F2937'}
+            stroke={color}
+            strokeWidth={isSelected ? 2 : 1.5}
+            opacity={isSelected ? 0.95 : 0.85}
+          />
+          {/* Emoji icon */}
+          <text
+            x={x}
+            y={y + Math.round(fontSize * 0.4)}
+            textAnchor="middle"
+            fontSize={fontSize}
+            style={{ userSelect: 'none' }}
+          >
+            {infra.emoji}
+          </text>
+        </>
+      )}
 
       {/* Label */}
       <text
@@ -130,9 +192,7 @@ export function InfraElementComponent({ infra }: Props) {
               <circle cx="0" cy="0" r="5" />
             </clipPath>
           </defs>
-          {/* Amber background circle */}
           <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
-          {/* Crane image cropped to circle */}
           <image
             href="/SSF_logo_white.png"
             x="-5.5" y="-6"
