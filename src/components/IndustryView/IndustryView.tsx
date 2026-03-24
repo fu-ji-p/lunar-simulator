@@ -1,17 +1,18 @@
 import { INDUSTRIES } from '../../data/industries';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { useT } from '../../hooks/useT';
 import { IndustryCard } from './IndustryCard';
 import { EconomicPanel } from './EconomicPanel';
 
 const ZONES = [
-  { key: 'earth', label: '地球', icon: '🌍', description: '宇宙開発で生まれた技術の地上展開' },
-  { key: 'space', label: '地球〜月軌道', icon: '🛸', description: '宇宙空間・月軌道での事業' },
-  { key: 'lunar_surface', label: '月面（露出・与圧）', icon: '🌕', description: '月面での産業活動' },
+  { key: 'earth',         jaLabel: '地球',              jaDesc: '宇宙開発で生まれた技術の地上展開',        icon: '🌍' },
+  { key: 'space',         jaLabel: '地球〜月軌道',       jaDesc: '宇宙空間・月軌道での事業',               icon: '🛸' },
+  { key: 'lunar_surface', jaLabel: '月面（露出・与圧）', jaDesc: '月面での産業活動',                       icon: '🌕' },
 ] as const;
 
 const SOURCE_META = {
-  scenario: { label: '探査シナリオ', activeColor: '#60A5FA', activeBg: '#1E3A5F' },
-  fund:     { label: '宇宙戦略基金', activeColor: '#F59E0B', activeBg: '#3D2A0A' },
+  scenario: { jaLabel: '探査シナリオ', enLabel: 'Exploration Scenario', activeColor: '#60A5FA', activeBg: '#1E3A5F' },
+  fund:     { jaLabel: '宇宙戦略基金', enLabel: 'Space Strategy Fund',  activeColor: '#F59E0B', activeBg: '#3D2A0A' },
 } as const;
 
 export function IndustryView() {
@@ -20,6 +21,7 @@ export function IndustryView() {
     showScenario, toggleShowScenario,
     showFund, toggleShowFund,
   } = useSimulatorStore();
+  const { t, lang, EN } = useT();
 
   // フェーズ × 情報源 の二段フィルター
   const filteredIndustries = INDUSTRIES.filter(i => {
@@ -33,13 +35,19 @@ export function IndustryView() {
 
       {/* Header */}
       <div>
-        <h2 className="font-orbitron text-white text-sm font-bold mb-1">産業ビジョン俯瞰</h2>
-        <p className="text-[#9CA3AF] text-xs">JAXAシナリオ3.5節に基づく月面経済のロードマップ</p>
+        <h2 className="font-orbitron text-white text-sm font-bold mb-1">
+          {t('産業ビジョン俯瞰', EN.industryTitle)}
+        </h2>
+        <p className="text-[#9CA3AF] text-xs">
+          {t('JAXAシナリオ3.5節に基づく月面経済のロードマップ', EN.industrySubtitle)}
+        </p>
       </div>
 
-      {/* ── 情報源フィルター ────────────────────────────────────────── */}
+      {/* 情報源フィルター */}
       <div className="bg-[#1A2235] rounded-lg border border-white/10 px-4 py-3">
-        <p className="text-[#6B7280] text-[9px] uppercase tracking-wider mb-2">情報源</p>
+        <p className="text-[#6B7280] text-[9px] uppercase tracking-wider mb-2">
+          {t('情報源', EN.sourceLabel)}
+        </p>
         <div className="flex gap-2">
           {(['scenario', 'fund'] as const).map(src => {
             const meta = SOURCE_META[src];
@@ -57,22 +65,19 @@ export function IndustryView() {
                 }
                 aria-pressed={isOn}
               >
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: isOn ? meta.activeColor : '#4B5563' }}
-                />
-                {meta.label}
-                {!isOn && <span className="text-[9px] opacity-60">（非表示）</span>}
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: isOn ? meta.activeColor : '#4B5563' }} />
+                {lang === 'en' ? meta.enLabel : meta.jaLabel}
+                {!isOn && <span className="text-[9px] opacity-60">{t('（非表示）', ' (off)')}</span>}
               </button>
             );
           })}
           <span className="ml-auto text-[10px] text-[#4B5563] self-center">
-            {filteredIndustries.length} 件表示
+            {EN.itemsShown(filteredIndustries.length)}
           </span>
         </div>
       </div>
 
-      {/* Economic scale panel — フェーズフィルターと連動 */}
+      {/* Economic scale panel */}
       <EconomicPanel filterPhase={industryFilter} />
 
       {/* Zones */}
@@ -80,16 +85,25 @@ export function IndustryView() {
         const items = filteredIndustries.filter(i => i.category === zone.key);
         if (items.length === 0) return null;
 
+        const label = lang === 'en'
+          ? (zone.key === 'earth' ? EN.zoneEarth : zone.key === 'space' ? EN.zoneSpace : EN.zoneLunar)
+          : zone.jaLabel;
+        const desc = lang === 'en'
+          ? (zone.key === 'earth' ? EN.zoneEarthDesc : zone.key === 'space' ? EN.zoneSpaceDesc : EN.zoneLunarDesc)
+          : zone.jaDesc;
+
         return (
           <div key={zone.key} className="space-y-3">
             {/* Zone header */}
             <div className="flex items-center gap-2 border-b border-white/10 pb-2">
               <span className="text-xl">{zone.icon}</span>
               <div>
-                <h3 className="text-white text-sm font-bold">{zone.label}</h3>
-                <p className="text-[#9CA3AF] text-[10px]">{zone.description}</p>
+                <h3 className="text-white text-sm font-bold">{label}</h3>
+                <p className="text-[#9CA3AF] text-[10px]">{desc}</p>
               </div>
-              <span className="ml-auto text-[#6B7280] text-xs">{items.length}件</span>
+              <span className="ml-auto text-[#6B7280] text-xs">
+                {items.length}{t('件', '')}
+              </span>
             </div>
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -103,7 +117,10 @@ export function IndustryView() {
 
       {/* Footer note */}
       <div className="text-[#4B5563] text-[10px] text-center py-4">
-        出典：JAXA「日本の国際宇宙探査シナリオ案2025」（EZA-2025001）3.5節 ／ JAXA宇宙戦略基金
+        {t(
+          '出典：JAXA「日本の国際宇宙探査シナリオ案2025」（EZA-2025001）3.5節 ／ JAXA宇宙戦略基金',
+          EN.footerNote,
+        )}
       </div>
     </div>
   );

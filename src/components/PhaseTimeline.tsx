@@ -1,5 +1,6 @@
 import { PHASES } from '../data/phases';
 import { useSimulatorStore } from '../store/simulatorStore';
+import { useT } from '../hooks/useT';
 
 export function PhaseTimeline() {
   const {
@@ -7,9 +8,17 @@ export function PhaseTimeline() {
     activeView,
     industryFilter, setIndustryFilter,
   } = useSimulatorStore();
+  const { t, lang, EN } = useT();
 
   // ── クルー健康管理・火星展望タブでは非表示 ───────────────────────────
   if (activeView === 'health' || activeView === 'mars') return null;
+
+  const phaseLabel = (p: typeof PHASES[0]) =>
+    lang === 'en' ? (EN.phases[p.id]?.label ?? p.id) : p.label;
+  const phasePeriod = (p: typeof PHASES[0]) =>
+    lang === 'en' ? (EN.phases[p.id]?.period ?? p.period) : p.period;
+  const phaseSubtitle = (p: typeof PHASES[0]) =>
+    lang === 'en' ? (EN.phases[p.id]?.subtitle ?? p.subtitle) : p.subtitle;
 
   // ── 産業ビジョンタブ：全フェーズ + P1〜P4 フィルター ──────────────────
   if (activeView === 'industry') {
@@ -26,7 +35,7 @@ export function PhaseTimeline() {
             }`}
             aria-pressed={industryFilter === null}
           >
-            全フェーズ
+            {t('全フェーズ', EN.allPhases)}
           </button>
 
           <div className="w-px h-5 bg-white/20" />
@@ -45,9 +54,9 @@ export function PhaseTimeline() {
                 style={isActive ? { backgroundColor: phase.color } : {}}
                 aria-pressed={isActive}
               >
-                <span>{phase.label}</span>
+                <span>{phaseLabel(phase)}</span>
                 <span className={`text-[9px] ${isActive ? 'text-black/70' : 'text-[#6B7280]'}`}>
-                  {phase.period}
+                  {phasePeriod(phase)}
                 </span>
               </button>
             );
@@ -57,10 +66,10 @@ export function PhaseTimeline() {
         {/* サブタイトル */}
         <p className="text-center text-xs text-[#6B7280] mt-2">
           {industryFilter === null
-            ? '全フェーズの産業・経済ロードマップを表示'
+            ? t('全フェーズの産業・経済ロードマップを表示', EN.allPhasesDesc)
             : (() => {
                 const phase = PHASES.find(p => parseInt(p.id.replace('phase', '')) === industryFilter);
-                return phase ? phase.subtitle : '';
+                return phase ? phaseSubtitle(phase) : '';
               })()
           }
         </p>
@@ -81,7 +90,7 @@ export function PhaseTimeline() {
                 onClick={() => setPhase(phase.id)}
                 className="flex flex-col items-center group flex-1"
                 aria-pressed={isActive}
-                aria-label={`${phase.label}: ${phase.period}`}
+                aria-label={`${phaseLabel(phase)}: ${phasePeriod(phase)}`}
               >
                 {/* Dot */}
                 <div
@@ -102,7 +111,7 @@ export function PhaseTimeline() {
                     isActive ? 'text-white' : 'text-[#6B7280] group-hover:text-[#9CA3AF]'
                   }`}
                 >
-                  {phase.label}
+                  {phaseLabel(phase)}
                 </span>
                 {/* Period */}
                 <span
@@ -110,7 +119,7 @@ export function PhaseTimeline() {
                     isActive ? 'text-[#9CA3AF]' : 'text-[#4B5563] group-hover:text-[#6B7280]'
                   }`}
                 >
-                  {phase.period}
+                  {phasePeriod(phase)}
                 </span>
                 {/* Crew count */}
                 <span
@@ -119,7 +128,7 @@ export function PhaseTimeline() {
                   }`}
                   style={isActive ? { color: phase.color } : {}}
                 >
-                  👥 {phase.crewCount}名
+                  👥 {phase.crewCount}{t('名', '')}
                 </span>
               </button>
 
@@ -138,7 +147,7 @@ export function PhaseTimeline() {
           className="text-center text-xs text-[#9CA3AF] mt-2"
           style={{ color: phase.color }}
         >
-          {phase.subtitle}
+          {phaseSubtitle(phase)}
         </p>
       ))}
     </div>

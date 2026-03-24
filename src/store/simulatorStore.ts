@@ -13,6 +13,8 @@ interface SimulatorStore {
   /** 情報源フィルター */
   showScenario: boolean;
   showFund: boolean;
+  /** UI言語 */
+  lang: 'ja' | 'en';
 
   setPhase: (phase: PhaseId) => void;
   selectInfra: (id: string | null) => void;
@@ -23,6 +25,7 @@ interface SimulatorStore {
   setIndustryFilter: (filter: number | null) => void;
   toggleShowScenario: () => void;
   toggleShowFund: () => void;
+  setLang: (lang: 'ja' | 'en') => void;
 }
 
 export const useSimulatorStore = create<SimulatorStore>((set) => ({
@@ -35,6 +38,7 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   industryFilter: null,
   showScenario: true,
   showFund: true,
+  lang: 'ja',
 
   setPhase: (phase) => set({ currentPhase: phase, selectedInfraId: null, isAnimating: true }),
   selectInfra: (id) => set({ selectedInfraId: id }),
@@ -45,4 +49,5 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   setIndustryFilter: (filter) => set({ industryFilter: filter }),
   toggleShowScenario: () => set((s) => ({ showScenario: !s.showScenario })),
   toggleShowFund: () => set((s) => ({ showFund: !s.showFund })),
+  setLang: (lang) => set({ lang }),
 }));

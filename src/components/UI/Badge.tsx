@@ -1,6 +1,7 @@
 import type { InfraCategory } from '../../data/infrastructure';
+import { useT } from '../../hooks/useT';
 
-const CATEGORY_LABELS: Record<InfraCategory, string> = {
+const CATEGORY_LABELS_JA: Record<InfraCategory, string> = {
   transport: '輸送',
   habitat: '居住',
   energy: 'エネルギー',
@@ -27,9 +28,14 @@ interface Props {
 }
 
 export function Badge({ category }: Props) {
+  const { lang, EN } = useT();
+  const label = lang === 'en'
+    ? (EN.categories[category] ?? category)
+    : CATEGORY_LABELS_JA[category];
+
   return (
     <span className={`inline-block px-2 py-0.5 text-xs rounded border ${CATEGORY_COLORS[category]}`}>
-      {CATEGORY_LABELS[category]}
+      {label}
     </span>
   );
 }

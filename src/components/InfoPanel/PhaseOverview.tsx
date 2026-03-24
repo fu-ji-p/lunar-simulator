@@ -1,22 +1,29 @@
 import { PHASES } from '../../data/phases';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { useT } from '../../hooks/useT';
 import { MilestoneList } from './MilestoneList';
 import { PhaseTransitionPanel } from './PhaseTransitionPanel';
 
 export function PhaseOverview() {
   const { currentPhase } = useSimulatorStore();
+  const { t, lang, EN } = useT();
   const phase = PHASES.find(p => p.id === currentPhase)!;
   const { stats } = phase;
 
+  const phaseEn = EN.phases[phase.id];
+
   const statItems = [
-    { icon: '👥', label: '常駐クルー', value: `${stats.totalCrew}名` },
-    { icon: '⚡', label: '電力供給', value: `${stats.powerKw}kW` },
-    { icon: '💧', label: '水生産', value: stats.waterKgPerDay > 0 ? `${stats.waterKgPerDay}kg/日` : '—' },
-    { icon: '🌬️', label: '酸素生産', value: stats.oxygenKgPerDay > 0 ? `${stats.oxygenKgPerDay}kg/日` : '—' },
-    { icon: '⛽', label: '推薬生産', value: stats.propellantTonPerYear > 0 ? `${stats.propellantTonPerYear}t/年` : '—' },
-    { icon: '🔬', label: '科学機器', value: `${stats.scienceInstruments}点` },
-    { icon: '🏭', label: '産業種別', value: `${stats.industryTypes}種` },
+    { icon: '👥', label: t('常駐クルー', EN.statCrewLabel),       value: `${stats.totalCrew}${t('名', '')}` },
+    { icon: '⚡', label: t('電力供給', EN.statPowerLabel),         value: `${stats.powerKw} kW` },
+    { icon: '💧', label: t('水生産', EN.statWaterLabel),           value: stats.waterKgPerDay > 0 ? `${stats.waterKgPerDay} ${t('kg/日', 'kg/d')}` : '—' },
+    { icon: '🌬️', label: t('酸素生産', EN.statOxygenLabel),       value: stats.oxygenKgPerDay > 0 ? `${stats.oxygenKgPerDay} ${t('kg/日', 'kg/d')}` : '—' },
+    { icon: '⛽', label: t('推薬生産', EN.statPropellantLabel),    value: stats.propellantTonPerYear > 0 ? `${stats.propellantTonPerYear} ${t('t/年', 't/yr')}` : '—' },
+    { icon: '🔬', label: t('科学機器', EN.statScienceLabel),       value: `${stats.scienceInstruments}${t('点', ' pts')}` },
+    { icon: '🏭', label: t('産業種別', EN.statIndustryLabel),      value: `${stats.industryTypes}${t('種', ' types')}` },
   ];
+
+  const label  = lang === 'en' ? (phaseEn?.label  ?? phase.label)  : phase.label;
+  const period = lang === 'en' ? (phaseEn?.period ?? phase.period) : phase.period;
 
   return (
     <div className="space-y-4">
@@ -26,9 +33,11 @@ export function PhaseOverview() {
         style={{ borderColor: `${phase.color}40`, backgroundColor: `${phase.color}10` }}
       >
         <div className="font-orbitron text-sm font-bold" style={{ color: phase.color }}>
-          {phase.label}: {phase.period}
+          {label}: {period}
         </div>
-        <div className="text-[#D1D5DB] text-xs mt-1">{phase.subtitle}</div>
+        <div className="text-[#D1D5DB] text-xs mt-1">
+          {lang === 'en' ? (phaseEn?.subtitle ?? phase.subtitle) : phase.subtitle}
+        </div>
       </div>
 
       {/* Stats grid */}
@@ -44,7 +53,7 @@ export function PhaseOverview() {
 
       {/* Milestones */}
       <div className="bg-[#1F2937] rounded p-3">
-        <MilestoneList milestones={phase.milestones} />
+        <MilestoneList milestones={phase.milestones} phaseId={phase.id} />
       </div>
 
       {/* Phase transition conditions */}
@@ -52,7 +61,7 @@ export function PhaseOverview() {
 
       {/* Hint */}
       <p className="text-[#6B7280] text-[10px] text-center">
-        ← 月面マップのインフラをクリックして詳細を確認
+        {t('← 月面マップのインフラをクリックして詳細を確認', EN.hintClickInfra)}
       </p>
     </div>
   );

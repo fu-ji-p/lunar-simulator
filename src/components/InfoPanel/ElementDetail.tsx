@@ -1,6 +1,7 @@
 import { ChevronLeft, BookOpen } from 'lucide-react';
 import type { InfraElement } from '../../data/infrastructure';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { useT } from '../../hooks/useT';
 import { Badge } from '../UI/Badge';
 import { INFRA_PARTNERS, PARTNERS } from '../../data/partners';
 
@@ -10,7 +11,11 @@ interface Props {
 
 export function ElementDetail({ infra }: Props) {
   const { selectInfra } = useSimulatorStore();
+  const { t, lang, EN } = useT();
   const partnerKeys = INFRA_PARTNERS[infra.id] ?? [];
+
+  const enInfra = EN.infra[infra.id];
+  const description = lang === 'en' ? (enInfra?.description ?? infra.description) : infra.description;
 
   return (
     <div className="space-y-4">
@@ -18,10 +23,10 @@ export function ElementDetail({ infra }: Props) {
       <button
         onClick={() => selectInfra(null)}
         className="flex items-center gap-1 text-xs text-[#9CA3AF] hover:text-white transition-colors"
-        aria-label="戻る"
+        aria-label={t('戻る', 'Back')}
       >
         <ChevronLeft size={14} />
-        <span>フェーズ概要に戻る</span>
+        <span>{t('フェーズ概要に戻る', EN.backToPhase)}</span>
       </button>
 
       {/* Header */}
@@ -29,20 +34,26 @@ export function ElementDetail({ infra }: Props) {
         <div className="flex items-start gap-3">
           <span className="text-3xl">{infra.emoji}</span>
           <div className="flex-1 min-w-0">
-            <h2 className="text-white text-sm font-bold leading-tight">{infra.name}</h2>
-            <p className="text-[#6B7280] text-[10px] mt-0.5">{infra.nameEn}</p>
+            <h2 className="text-white text-sm font-bold leading-tight">
+              {lang === 'en' ? infra.nameEn : infra.name}
+            </h2>
+            <p className="text-[#6B7280] text-[10px] mt-0.5">
+              {lang === 'en' ? infra.name : infra.nameEn}
+            </p>
             <div className="mt-2">
               <Badge category={infra.category} />
             </div>
           </div>
         </div>
-        <p className="text-[#9CA3AF] text-xs mt-2 leading-relaxed">{infra.description}</p>
+        <p className="text-[#9CA3AF] text-xs mt-2 leading-relaxed">{description}</p>
       </div>
 
       {/* International Partners */}
       {partnerKeys.length > 0 && (
         <div className="bg-[#1F2937] rounded p-3">
-          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-2">国際パートナー</h3>
+          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-2">
+            {t('国際パートナー', EN.sectionPartners)}
+          </h3>
           <div className="flex flex-wrap gap-1.5">
             {partnerKeys.map(key => {
               const p = PARTNERS[key];
@@ -66,13 +77,15 @@ export function ElementDetail({ infra }: Props) {
       )}
 
       {/* Details */}
-      <DetailSection title="目的・役割" content={infra.detail.purpose} />
-      <DetailSection title="主要技術" content={infra.detail.technology} />
-      <DetailSection title="JAXAの役割" content={infra.detail.japanRole} highlight />
+      <DetailSection title={t('目的・役割', EN.sectionPurpose)} content={infra.detail.purpose} />
+      <DetailSection title={t('主要技術', EN.sectionTechnology)} content={infra.detail.technology} />
+      <DetailSection title={t('JAXAの役割', EN.sectionJapanRole)} content={infra.detail.japanRole} highlight />
 
       {/* Specs */}
       <div className="bg-[#1F2937] rounded p-3">
-        <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-2">スペック</h3>
+        <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-2">
+          {t('スペック', EN.sectionSpecs)}
+        </h3>
         <div className="space-y-1">
           {Object.entries(infra.detail.specs).map(([key, val]) => (
             <div key={key} className="flex gap-2 text-xs">
@@ -87,11 +100,12 @@ export function ElementDetail({ infra }: Props) {
       <div className="flex items-start gap-2 bg-[#1F2937] rounded p-3">
         <BookOpen size={12} className="text-[#6B7280] mt-0.5 shrink-0" />
         <p className="text-[#6B7280] text-[10px] leading-relaxed">
-          <span className="text-[#9CA3AF]">参照：</span>{infra.detail.scenarioRef}
+          <span className="text-[#9CA3AF]">{t('参照：', EN.refPrefix)}</span>
+          {infra.detail.scenarioRef}
         </p>
       </div>
 
-      {/* 情報源バッジ（宇宙戦略基金の場合は外部リンクも表示） */}
+      {/* 情報源バッジ */}
       {infra.source === 'fund' ? (
         <div className="flex items-center justify-between bg-[#3D2A0A] rounded p-3 border border-[#F59E0B]/25">
           <div className="flex items-center gap-2">
@@ -115,7 +129,9 @@ export function ElementDetail({ infra }: Props) {
               />
               <span className="text-[9px]" style={{ color: '#F59E0B' }}>SSF</span>
             </span>
-            <span className="text-[9px] text-[#9CA3AF]">JAXA 探査テーマ</span>
+            <span className="text-[9px] text-[#9CA3AF]">
+              {t('JAXA 探査テーマ', EN.jaxa_exploration_theme)}
+            </span>
           </div>
           {infra.fundUrl && (
             <a
@@ -124,7 +140,7 @@ export function ElementDetail({ infra }: Props) {
               rel="noopener noreferrer"
               className="text-[9px] text-[#F59E0B] hover:text-[#FCD34D] transition-colors underline underline-offset-1 shrink-0"
             >
-              公式ページ→
+              {t('公式ページ→', EN.official_page)}
             </a>
           )}
         </div>
@@ -134,9 +150,11 @@ export function ElementDetail({ infra }: Props) {
             className="text-[9px] px-2 py-0.5 rounded-full font-medium"
             style={{ backgroundColor: 'rgba(96,165,250,0.15)', color: '#60A5FA', border: '1px solid rgba(96,165,250,0.35)' }}
           >
-            探査シナリオ
+            {t('探査シナリオ', EN.exploration_scenario_label)}
           </span>
-          <span className="text-[9px] text-[#9CA3AF]">国際宇宙探査シナリオ案2025</span>
+          <span className="text-[9px] text-[#9CA3AF]">
+            {t('国際宇宙探査シナリオ案2025', EN.scenario_source)}
+          </span>
         </div>
       )}
     </div>

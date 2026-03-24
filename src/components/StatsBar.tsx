@@ -1,20 +1,22 @@
 import { PHASES } from '../data/phases';
 import { useSimulatorStore } from '../store/simulatorStore';
+import { useT } from '../hooks/useT';
 import { AnimatedNumber } from './UI/AnimatedNumber';
 
 export function StatsBar() {
   const { currentPhase } = useSimulatorStore();
+  const { t, EN } = useT();
   const phase = PHASES.find(p => p.id === currentPhase)!;
   const { stats } = phase;
 
   const items = [
-    { icon: '👥', label: 'クルー', value: stats.totalCrew, unit: '名', decimals: 0 },
-    { icon: '⚡', label: '電力', value: stats.powerKw, unit: 'kW', decimals: 0 },
-    { icon: '💧', label: '水生産', value: stats.waterKgPerDay, unit: 'kg/日', decimals: 0 },
-    { icon: '🌬️', label: '酸素', value: stats.oxygenKgPerDay, unit: 'kg/日', decimals: 0 },
-    { icon: '⛽', label: '推薬', value: stats.propellantTonPerYear, unit: 't/年', decimals: 1 },
-    { icon: '🔬', label: '科学機器', value: stats.scienceInstruments, unit: '点', decimals: 0 },
-    { icon: '🏭', label: '産業種別', value: stats.industryTypes, unit: '種', decimals: 0 },
+    { icon: '👥', label: t('クルー', EN.statCrew),        value: stats.totalCrew,            unit: t('名', ''), decimals: 0 },
+    { icon: '⚡', label: t('電力', EN.statPower),          value: stats.powerKw,              unit: 'kW',        decimals: 0 },
+    { icon: '💧', label: t('水生産', EN.statWater),        value: stats.waterKgPerDay,        unit: t('kg/日', 'kg/d'), decimals: 0 },
+    { icon: '🌬️', label: t('酸素', EN.statOxygen),        value: stats.oxygenKgPerDay,       unit: t('kg/日', 'kg/d'), decimals: 0 },
+    { icon: '⛽', label: t('推薬', EN.statPropellant),     value: stats.propellantTonPerYear, unit: t('t/年', 't/yr'),  decimals: 1 },
+    { icon: '🔬', label: t('科学機器', EN.statScience),    value: stats.scienceInstruments,   unit: t('点', 'pts'),      decimals: 0 },
+    { icon: '🏭', label: t('産業種別', EN.statIndustry),   value: stats.industryTypes,        unit: t('種', 'types'),    decimals: 0 },
   ];
 
   return (
