@@ -15,7 +15,13 @@ export function ElementDetail({ infra }: Props) {
   const partnerKeys = INFRA_PARTNERS[infra.id] ?? [];
 
   const enInfra = EN.infra[infra.id];
-  const description = lang === 'en' ? (enInfra?.description ?? infra.description) : infra.description;
+  const enDetail = EN.infraDetail[infra.id];
+  const description  = lang === 'en' ? (enInfra?.description ?? infra.description) : infra.description;
+  const purpose      = lang === 'en' ? (enDetail?.purpose      ?? infra.detail.purpose)      : infra.detail.purpose;
+  const technology   = lang === 'en' ? (enDetail?.technology   ?? infra.detail.technology)   : infra.detail.technology;
+  const japanRole    = lang === 'en' ? (enDetail?.japanRole    ?? infra.detail.japanRole)    : infra.detail.japanRole;
+  const specs        = lang === 'en' ? (enDetail?.specs        ?? infra.detail.specs)        : infra.detail.specs;
+  const scenarioRef  = lang === 'en' ? (enDetail?.scenarioRef  ?? infra.detail.scenarioRef)  : infra.detail.scenarioRef;
 
   return (
     <div className="space-y-4">
@@ -57,6 +63,7 @@ export function ElementDetail({ infra }: Props) {
           <div className="flex flex-wrap gap-1.5">
             {partnerKeys.map(key => {
               const p = PARTNERS[key];
+              const label = lang === 'en' ? (EN.partners[key] ?? p.label) : p.label;
               return (
                 <div
                   key={key}
@@ -68,7 +75,7 @@ export function ElementDetail({ infra }: Props) {
                   }}
                 >
                   <span>{p.flag}</span>
-                  <span>{p.label}</span>
+                  <span>{label}</span>
                 </div>
               );
             })}
@@ -77,9 +84,9 @@ export function ElementDetail({ infra }: Props) {
       )}
 
       {/* Details */}
-      <DetailSection title={t('目的・役割', EN.sectionPurpose)} content={infra.detail.purpose} />
-      <DetailSection title={t('主要技術', EN.sectionTechnology)} content={infra.detail.technology} />
-      <DetailSection title={t('JAXAの役割', EN.sectionJapanRole)} content={infra.detail.japanRole} highlight />
+      <DetailSection title={t('目的・役割', EN.sectionPurpose)} content={purpose} />
+      <DetailSection title={t('主要技術', EN.sectionTechnology)} content={technology} />
+      <DetailSection title={t('JAXAの役割', EN.sectionJapanRole)} content={japanRole} highlight />
 
       {/* Specs */}
       <div className="bg-[#1F2937] rounded p-3">
@@ -87,7 +94,7 @@ export function ElementDetail({ infra }: Props) {
           {t('スペック', EN.sectionSpecs)}
         </h3>
         <div className="space-y-1">
-          {Object.entries(infra.detail.specs).map(([key, val]) => (
+          {Object.entries(specs).map(([key, val]) => (
             <div key={key} className="flex gap-2 text-xs">
               <span className="text-[#9CA3AF] shrink-0 w-20">{key}</span>
               <span className="font-spacemono text-[#E5E7EB]">{val}</span>
@@ -101,7 +108,7 @@ export function ElementDetail({ infra }: Props) {
         <BookOpen size={12} className="text-[#6B7280] mt-0.5 shrink-0" />
         <p className="text-[#6B7280] text-[10px] leading-relaxed">
           <span className="text-[#9CA3AF]">{t('参照：', EN.refPrefix)}</span>
-          {infra.detail.scenarioRef}
+          {scenarioRef}
         </p>
       </div>
 
