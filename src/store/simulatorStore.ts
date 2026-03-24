@@ -10,6 +10,9 @@ interface SimulatorStore {
   showResourceOverlay: boolean;
   /** 産業ビジョンのフェーズフィルター: null = 全フェーズ, 1〜4 = そのフェーズまで */
   industryFilter: number | null;
+  /** 情報源フィルター */
+  showScenario: boolean;
+  showFund: boolean;
 
   setPhase: (phase: PhaseId) => void;
   selectInfra: (id: string | null) => void;
@@ -18,6 +21,8 @@ interface SimulatorStore {
   toggleCorrelations: () => void;
   toggleResourceOverlay: () => void;
   setIndustryFilter: (filter: number | null) => void;
+  toggleShowScenario: () => void;
+  toggleShowFund: () => void;
 }
 
 export const useSimulatorStore = create<SimulatorStore>((set) => ({
@@ -28,6 +33,8 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   showCorrelations: false,
   showResourceOverlay: false,
   industryFilter: null,
+  showScenario: true,
+  showFund: true,
 
   setPhase: (phase) => set({ currentPhase: phase, selectedInfraId: null, isAnimating: true }),
   selectInfra: (id) => set({ selectedInfraId: id }),
@@ -36,4 +43,6 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   toggleCorrelations: () => set((s) => ({ showCorrelations: !s.showCorrelations })),
   toggleResourceOverlay: () => set((s) => ({ showResourceOverlay: !s.showResourceOverlay })),
   setIndustryFilter: (filter) => set({ industryFilter: filter }),
+  toggleShowScenario: () => set((s) => ({ showScenario: !s.showScenario })),
+  toggleShowFund: () => set((s) => ({ showFund: !s.showFund })),
 }));
