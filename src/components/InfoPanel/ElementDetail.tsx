@@ -96,10 +96,24 @@ export function ElementDetail({ infra }: Props) {
         <div className="flex items-center justify-between bg-[#3D2A0A] rounded p-3 border border-[#F59E0B]/25">
           <div className="flex items-center gap-2">
             <span
-              className="text-[9px] px-2 py-0.5 rounded-full font-medium"
-              style={{ backgroundColor: 'rgba(245,158,11,0.2)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.4)' }}
+              className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-medium"
+              style={{ backgroundColor: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)' }}
+              title="宇宙戦略基金"
             >
-              宇宙戦略基金
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '14px', height: '14px',
+                  backgroundImage: 'url(/SSF_logo_white.png)',
+                  backgroundSize: '35px auto',
+                  backgroundPosition: '-1px center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: '#F59E0B',
+                  borderRadius: '50%',
+                  flexShrink: 0,
+                }}
+              />
+              <span className="text-[9px]" style={{ color: '#F59E0B' }}>SSF</span>
             </span>
             <span className="text-[9px] text-[#9CA3AF]">JAXA 探査テーマ</span>
           </div>

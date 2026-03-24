@@ -52,12 +52,35 @@ export function IndustryCard({ industry }: Props) {
           {industry.source === 'scenario' ? '収益: ' : '制度: '}{industry.revenueModel}
         </span>
         <div className="flex items-center gap-1.5 shrink-0">
-          <span
-            className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
-            style={{ backgroundColor: sourceMeta.bg, color: sourceMeta.color, border: `1px solid ${sourceMeta.color}40` }}
-          >
-            {sourceMeta.label}
-          </span>
+          {industry.source === 'fund' ? (
+            <span
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full font-medium"
+              style={{ backgroundColor: sourceMeta.bg, border: `1px solid ${sourceMeta.color}40` }}
+              title="宇宙戦略基金"
+            >
+              <span
+                className="shrink-0 rounded-full"
+                style={{
+                  display: 'inline-block',
+                  width: '12px', height: '12px',
+                  backgroundImage: 'url(/SSF_logo_white.png)',
+                  backgroundSize: '30px auto',
+                  backgroundPosition: '-1px center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: '#F59E0B',
+                  borderRadius: '50%',
+                }}
+              />
+              <span className="text-[8px]" style={{ color: sourceMeta.color }}>SSF</span>
+            </span>
+          ) : (
+            <span
+              className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
+              style={{ backgroundColor: sourceMeta.bg, color: sourceMeta.color, border: `1px solid ${sourceMeta.color}40` }}
+            >
+              {sourceMeta.label}
+            </span>
+          )}
           {industry.fundUrl && (
             <a
               href={industry.fundUrl}

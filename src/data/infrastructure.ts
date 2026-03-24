@@ -573,22 +573,22 @@ export const INFRASTRUCTURE: InfraElement[] = [
 
   // ===== 宇宙戦略基金（探査第一期・第二期） =====
   {
-    id: 'fund_thz_ground',
-    name: '水資源テラヘルツ受信局',
-    nameEn: 'THz Water Resource Sensing Station',
+    id: 'fund_thz_satellite',
+    name: 'テラヘルツ水資源探査衛星',
+    nameEn: 'THz Water Resource Sensing Satellite',
     category: 'science',
-    icon: 'Search',
-    emoji: '📡',
-    position: { x: 10, y: 56 },
-    displaySize: 0.8,
-    description: '月周回衛星が取得したテラヘルツ波データを受信・解析する地上局。南極水氷分布を広域把握。',
+    icon: 'Satellite',
+    emoji: '🛰️',
+    position: { x: 16, y: 12 },
+    displaySize: 0.85,
+    description: '月周回軌道からテラヘルツ波で南極域の水氷分布を広域・高精度にリモートセンシングする超小型衛星。',
     source: 'fund',
     fundUrl: 'https://fund.jaxa.jp/techlist/theme4-2/',
     detail: {
-      purpose: 'テラヘルツ波衛星センサーが観測した月南極域の水氷分布データを受信し、ISRU適地を特定。',
-      technology: 'テラヘルツ受信アンテナ、高精度スペクトル解析装置、データ中継システム。',
-      japanRole: 'JAXAが世界最高水準のテラヘルツ波技術を月探査に応用し、水資源探査の国際標準を構築。',
-      specs: { '観測帯域': 'テラヘルツ波（氷・水感受性）', '分解能': '数kmスケール', '検出対象': '水氷・水和物' },
+      purpose: '月周回軌道（低軌道）でテラヘルツ波パッシブリモートセンシングにより月南極域の水氷分布を広域把握し、ISRU適地選定に貢献。',
+      technology: 'テラヘルツ波パッシブセンサ搭載超小型衛星（数十kg級）。テラヘルツ波の氷・水和物への高感受性を活用した受動観測。',
+      japanRole: 'JAXAが世界最高水準のテラヘルツ波技術を月探査に応用。月周回軌道での水資源センシング国際標準化を主導。',
+      specs: { '軌道': '月周回低軌道', '観測方式': 'パッシブリモートセンシング', '観測帯域': 'テラヘルツ波（氷・水感受性）', '衛星規模': '超小型（数十kg級）', '検出対象': '水氷・水和物' },
       scenarioRef: '宇宙戦略基金 探査第一期「月面の水資源探査技術（センシング技術）の開発・実証」'
     }
   },

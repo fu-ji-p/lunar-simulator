@@ -39,11 +39,11 @@ export const PHASES: Phase[] = [
     crewCount: 0,
     activeInfraIds: [
       'slim', 'lupex', 'gateway_core', 'relay_satellite',
-      'fund_thz_ground', 'fund_precision_lander'
+      'fund_thz_satellite', 'fund_precision_lander'
     ],
     newInPhase: [
       'slim', 'lupex', 'gateway_core', 'relay_satellite',
-      'fund_thz_ground', 'fund_precision_lander'
+      'fund_thz_satellite', 'fund_precision_lander'
     ],
     milestones: [
       { year: '2024', event: 'SLIM月面着陸成功（日本初）', category: 'mission' },
@@ -74,7 +74,7 @@ export const PHASES: Phase[] = [
       'slim', 'lupex', 'gateway_full', 'relay_satellite',
       'lunar_lander', 'surface_habitat_s', 'pressurized_rover',
       'solar_power_s', 'isru_pilot', 'seismometer_net',
-      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
+      'fund_thz_satellite', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
     ],
     newInPhase: [
       'gateway_full', 'lunar_lander', 'surface_habitat_s',
@@ -112,7 +112,7 @@ export const PHASES: Phase[] = [
       'solar_power_m', 'nuclear_power', 'isru_full',
       'propellant_plant', 'seismometer_net', 'lunar_telescope',
       'sample_return', 'construction_robot', 'mining_robot',
-      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
+      'fund_thz_satellite', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
       'fund_am241_power', 'fund_infra_demo'
     ],
     newInPhase: [
@@ -154,7 +154,7 @@ export const PHASES: Phase[] = [
       'sample_return', 'construction_robot', 'mining_robot',
       'biolab', 'manufacturing_hub', 'tourism_hub',
       'regolith_3dprint', 'lunar_comms_net', 'medical_center',
-      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
+      'fund_thz_satellite', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
       'fund_am241_power', 'fund_infra_demo'
     ],
     newInPhase: [
