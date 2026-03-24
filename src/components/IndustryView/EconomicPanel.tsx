@@ -43,6 +43,7 @@ export function EconomicPanel({ filterPhase }: Props) {
               const active = isPhaseActive(phaseNum);
               const color = active ? phase.color : '#4B5563';
               const enPhase = ec.investmentPhases[i];
+              const period       = lang === 'en' ? (enPhase?.period       ?? phase.period)       : phase.period;
               const driver       = lang === 'en' ? (enPhase?.driver       ?? phase.driver)       : phase.driver;
               const keyMilestone = lang === 'en' ? (enPhase?.keyMilestone ?? phase.keyMilestone) : phase.keyMilestone;
 
@@ -57,7 +58,7 @@ export function EconomicPanel({ filterPhase }: Props) {
                       <span className="text-[9px] font-spacemono font-bold" style={{ color }}>
                         {phase.phaseLabel}
                       </span>
-                      <span className="text-[9px] text-[#6B7280]">{phase.period}</span>
+                      <span className="text-[9px] text-[#6B7280]">{period}</span>
                       <span
                         className="text-[8px] px-1.5 py-0.5 rounded-full"
                         style={{ backgroundColor: `${color}20`, color }}

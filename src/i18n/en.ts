@@ -565,11 +565,11 @@ export const EN = {
     spinoffTitle: 'Earth Spinoff Industries',
 
     investmentPhases: [
-      { driver: 'Government-led', keyMilestone: 'Artemis program · Gateway construction · LUPEX exploration' },
-      { driver: 'Private sector accelerating', keyMilestone: 'Privatization of lunar transport market · ISRU demonstration' },
-      { driver: 'Shift to private-led', keyMilestone: 'ISRU full operation · Lunar construction industry entry' },
-      { driver: 'Lunar economy self-sustaining', keyMilestone: '40-person residency · Multi-sector industry · Tourism launch' },
-    ] as { driver: string; keyMilestone: string }[],
+      { period: '2020s',       driver: 'Government-led',              keyMilestone: 'Artemis program · Gateway construction · LUPEX exploration' },
+      { period: 'Early 2030s', driver: 'Private sector accelerating', keyMilestone: 'Privatization of lunar transport market · ISRU demonstration' },
+      { period: 'Late 2030s',  driver: 'Shift to private-led',        keyMilestone: 'ISRU full operation · Lunar construction industry entry' },
+      { period: '2040s',       driver: 'Lunar economy self-sustaining',keyMilestone: '40-person residency · Multi-sector industry · Tourism launch' },
+    ] as { period: string; driver: string; keyMilestone: string }[],
 
     marketSegments: [
       { name: 'Space\nTransport\nServices', description: 'Commercial landers, logistics, fueling' },
