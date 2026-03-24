@@ -14,18 +14,30 @@ const ORBITAL_IDS = new Set([
   'gateway_core', 'gateway_full', 'relay_satellite', 'relay_satellite_full', 'lunar_lander'
 ]);
 
+const SOURCE_META = {
+  scenario: { label: '探査シナリオ', activeColor: '#60A5FA', activeBg: 'rgba(30,58,95,0.85)' },
+  fund:     { label: '宇宙戦略基金', activeColor: '#F59E0B', activeBg: 'rgba(61,42,10,0.85)' },
+} as const;
+
 export function LunarBaseView() {
   const {
     currentPhase, selectInfra,
     showCorrelations, toggleCorrelations,
     showResourceOverlay, toggleResourceOverlay,
+    showScenario, toggleShowScenario,
+    showFund, toggleShowFund,
   } = useSimulatorStore();
   const phase = PHASES.find(p => p.id === currentPhase)!;
 
-  // Surface infrastructure (not orbital)
-  const surfaceInfra = INFRASTRUCTURE.filter(
-    infra => phase.activeInfraIds.includes(infra.id) && !ORBITAL_IDS.has(infra.id)
-  );
+  // Surface infrastructure: フェーズ × 情報源でフィルター
+  const surfaceInfra = INFRASTRUCTURE.filter(infra => {
+    if (!phase.activeInfraIds.includes(infra.id)) return false;
+    if (ORBITAL_IDS.has(infra.id)) return false;
+    const src = infra.source ?? 'scenario';
+    if (src === 'scenario' && !showScenario) return false;
+    if (src === 'fund' && !showFund) return false;
+    return true;
+  });
 
   return (
     <div className="w-full h-full relative" style={{ minHeight: '400px' }}>
@@ -41,7 +53,6 @@ export function LunarBaseView() {
           }`}
           aria-pressed={showResourceOverlay}
         >
-          {/* Layered map icon */}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M6 1L11 3.5L6 6L1 3.5L6 1Z" stroke="currentColor" strokeWidth="1" fill="none" />
             <path d="M1 6L6 8.5L11 6"             stroke="currentColor" strokeWidth="1" />
@@ -70,6 +81,34 @@ export function LunarBaseView() {
           </svg>
           {showCorrelations ? '相関関係を非表示' : '相関関係を表示'}
         </button>
+
+        {/* 情報源トグル */}
+        <div className="flex flex-col gap-1 mt-1">
+          {(['scenario', 'fund'] as const).map(src => {
+            const meta = SOURCE_META[src];
+            const isOn = src === 'scenario' ? showScenario : showFund;
+            const toggle = src === 'scenario' ? toggleShowScenario : toggleShowFund;
+            return (
+              <button
+                key={src}
+                onClick={toggle}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-all border"
+                style={
+                  isOn
+                    ? { backgroundColor: meta.activeBg, color: meta.activeColor, borderColor: `${meta.activeColor}50` }
+                    : { backgroundColor: 'rgba(10,14,26,0.8)', color: '#4B5563', borderColor: 'rgba(255,255,255,0.1)' }
+                }
+                aria-pressed={isOn}
+              >
+                <span
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: isOn ? meta.activeColor : '#4B5563' }}
+                />
+                {meta.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <svg

@@ -20,6 +20,10 @@ export interface InfraElement {
   displaySize: number;
   description: string;
   detail: InfraDetail;
+  /** 情報源: undefined / 'scenario' = 探査シナリオ, 'fund' = 宇宙戦略基金 */
+  source?: 'scenario' | 'fund';
+  /** 宇宙戦略基金の詳細ページ URL（fund の場合のみ） */
+  fundUrl?: string;
 }
 
 export interface InfraDetail {
@@ -564,6 +568,148 @@ export const INFRASTRUCTURE: InfraElement[] = [
       japanRole: 'JAXAは月測位システムの標準化に向けてNASA・ESAと協議（6.2.7節、7.4節）。',
       specs: { '帯域': 'Gbps級（光通信）', '測位': '数m以内', 'カバー': '月面全域' },
       scenarioRef: '6.2.7節、6.2.8節、7.4節'
+    }
+  },
+
+  // ===== 宇宙戦略基金（探査第一期・第二期） =====
+  {
+    id: 'fund_thz_ground',
+    name: '水資源テラヘルツ受信局',
+    nameEn: 'THz Water Resource Sensing Station',
+    category: 'science',
+    icon: 'Search',
+    emoji: '📡',
+    position: { x: 10, y: 56 },
+    displaySize: 0.8,
+    description: '月周回衛星が取得したテラヘルツ波データを受信・解析する地上局。南極水氷分布を広域把握。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme4-2/',
+    detail: {
+      purpose: 'テラヘルツ波衛星センサーが観測した月南極域の水氷分布データを受信し、ISRU適地を特定。',
+      technology: 'テラヘルツ受信アンテナ、高精度スペクトル解析装置、データ中継システム。',
+      japanRole: 'JAXAが世界最高水準のテラヘルツ波技術を月探査に応用し、水資源探査の国際標準を構築。',
+      specs: { '観測帯域': 'テラヘルツ波（氷・水感受性）', '分解能': '数kmスケール', '検出対象': '水氷・水和物' },
+      scenarioRef: '宇宙戦略基金 探査第一期「月面の水資源探査技術（センシング技術）の開発・実証」'
+    }
+  },
+  {
+    id: 'fund_precision_lander',
+    name: '極域精密着陸実証機',
+    nameEn: 'Polar Precision Landing Demonstrator',
+    category: 'exploration',
+    icon: 'MapPin',
+    emoji: '🎯',
+    position: { x: 8, y: 72 },
+    displaySize: 0.85,
+    description: 'SLIMと同等以上の精度（100m以下）で月極域に着陸する民間ランダーの実証機。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme2_16/',
+    detail: {
+      purpose: '月極域の水資源・日照地帯など限定的な着陸適地への高精度着陸を実現し、民間ペイロード輸送を可能にする。',
+      technology: 'AI画像認識型精密誘導、地形適応着陸脚、極域温度対応推進系。',
+      japanRole: 'JAXAのSLIM技術を民間に移転し、高頻度・低コストな月極域ランダーの国際競争力を確立。',
+      specs: { '着陸精度': '100m以下', '対象地域': '月極域（永久影クレーター周辺）', '搭載量': '〜200kg' },
+      scenarioRef: '宇宙戦略基金 探査第二期「月極域における高精度着陸技術」'
+    }
+  },
+  {
+    id: 'fund_regen_fc',
+    name: '再生型燃料電池システム',
+    nameEn: 'Regenerative Fuel Cell System',
+    category: 'energy',
+    icon: 'Zap',
+    emoji: '🔋',
+    position: { x: 93, y: 62 },
+    displaySize: 0.85,
+    description: '月夜14日間を乗り越える大容量蓄電システム。太陽電池と組み合わせて完全な昼夜サイクル電力供給を実現。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme3/',
+    detail: {
+      purpose: '月の夜（14日間）に太陽電池が発電できない期間も、水電解で貯蔵したH₂/O₂から電力を供給する。',
+      technology: '純酸素対応水電解装置、高圧ガス貯蔵タンク、固体高分子型燃料電池。低重力環境対応。',
+      japanRole: 'JAXAが国内企業と連携し、月面環境特有の技術課題（純酸素・低重力）を克服した世界初の月面用再生型燃料電池を開発。',
+      specs: { '出力': '〜50kW', '蓄電容量': '月夜14日間対応', '動作温度': '-170〜110℃' },
+      scenarioRef: '宇宙戦略基金 探査第一期「再生型燃料電池システム」'
+    }
+  },
+  {
+    id: 'fund_lnss_ground',
+    name: '月測位基準局（LNSS）',
+    nameEn: 'Lunar Navigation Reference Station',
+    category: 'communication',
+    icon: 'Radio',
+    emoji: '🗼',
+    position: { x: 40, y: 45 },
+    displaySize: 0.8,
+    description: '月面上の測位基準点。月周回測位衛星と連携し、月面でのcm〜m精度の自己位置把握を可能にする。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme15/',
+    detail: {
+      purpose: '月面の人・ロボット・ローバーがリアルタイムに自己位置を把握するためのGPS相当インフラの地上基準点。',
+      technology: 'GNSS発展型測位信号受信装置、高精度時刻同期、月面LunaNet準拠送受信機。',
+      japanRole: 'JAXAが米欧のLunaNet構想に参画し、日本独自の測位技術で月測位システム標準化に貢献。',
+      specs: { '測位精度': '数cm〜m級', '連携衛星': 'LNSS周回衛星 × 複数機', 'カバー': '月面全域（衛星コンステ）' },
+      scenarioRef: '宇宙戦略基金 探査第一期「月測位システム技術」'
+    }
+  },
+  {
+    id: 'fund_comm_ground',
+    name: '月-地球高速通信局',
+    nameEn: 'Lunar-Earth High-Speed Communication Terminal',
+    category: 'communication',
+    icon: 'Radio',
+    emoji: '📺',
+    position: { x: 91, y: 76 },
+    displaySize: 0.9,
+    description: '4K/8Kリアルタイム映像・大容量科学データを地球に伝送する月面通信地上局。光通信・5G・DTN技術を統合。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme5/',
+    detail: {
+      purpose: '月面の有人活動・ロボット作業の映像を地球へリアルタイム伝送し、遠隔支援・科学成果発信を実現。',
+      technology: '光通信地上局（レーザー伝送）、月面5G（WiFi相当）、遅延耐性ネットワーク（DTN）。',
+      japanRole: 'JAXAがNASA地上局（LEGS）と同等機能を持つ国産地上局を整備し、日本独自の月通信インフラを確立。',
+      specs: { '伝送速度': '100Mbps〜Gbps（光通信）', '遅延': '往復2.6秒', '対応': '4K/8K映像・科学データ' },
+      scenarioRef: '宇宙戦略基金 探査第一期「月-地球間通信システム開発・実証（FS）」'
+    }
+  },
+  {
+    id: 'fund_am241_power',
+    name: 'Am-241半永久電源装置',
+    nameEn: 'Am-241 Semi-Permanent Power Unit',
+    category: 'energy',
+    icon: 'Atom',
+    emoji: '☢️',
+    position: { x: 6, y: 65 },
+    displaySize: 0.8,
+    description: 'アメリシウム241の崩壊熱を熱電変換で電力化する半永久電源。燃料補給不要・長期自律運用が可能。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme20/',
+    detail: {
+      purpose: '極端な温度変化（-170〜110℃）の月面・永久影内でも補給なしに長期間安定した電力を供給する。',
+      technology: '国内調達可能なAm-241 + 日本が世界最高水準を誇る半導体熱電変換素子の組み合わせ。',
+      japanRole: 'JAXAと国内半導体企業が連携し、アメリシウム熱電変換技術で火星圏以遠探査の電源自立を目指す。',
+      specs: { '出力': '数W〜数十W', '寿命': '数十年（Am-241の半減期：432年）', '設置場所': '永久影内でも動作可' },
+      scenarioRef: '宇宙戦略基金 探査第一期「半永久電源システムに係る要素技術」'
+    }
+  },
+  {
+    id: 'fund_infra_demo',
+    name: '月面インフラ実証エリア',
+    nameEn: 'Lunar Infrastructure Technology Demo Zone',
+    category: 'exploration',
+    icon: 'Wrench',
+    emoji: '🔩',
+    position: { x: 38, y: 76 },
+    displaySize: 1.0,
+    description: '与圧ローバー・現地資材活用建設・月面環境センシングなど、月面インフラ要素技術を実証するエリア。',
+    source: 'fund',
+    fundUrl: 'https://fund.jaxa.jp/techlist/theme2_15/',
+    detail: {
+      purpose: '2040年代の日本人宇宙飛行士月面着陸を見据え、非宇宙分野を含む産学の要素技術を月面で実証・検証する。',
+      technology: '与圧型小型ローバー試験機、月面センサ群、環境データ収集装置、構造材料試験体。',
+      japanRole: 'JAXAが民間・大学と連携し、月面経済圏構築に向けた多様な要素技術の早期獲得を推進。',
+      specs: { '対象': '非宇宙分野含む産学の要素技術', '期待': '将来の月面インフラ基盤技術の実証', '市場規模': '2040年頃に1,700億USD想定' },
+      scenarioRef: '宇宙戦略基金 探査第二期「月面インフラ構築に資する要素技術」'
     }
   },
 ];

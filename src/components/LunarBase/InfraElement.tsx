@@ -122,6 +122,30 @@ export function InfraElementComponent({ infra }: Props) {
         {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
       </text>
 
+      {/* 宇宙戦略基金バッジ（右上の小ひし形） */}
+      {infra.source === 'fund' && (
+        <g transform={`translate(${x + r - 2}, ${y - r + 2})`}>
+          <rect
+            x="-5" y="-4"
+            width="10" height="8"
+            rx="2"
+            fill="#F59E0B"
+            fillOpacity="0.9"
+          />
+          <text
+            x="0" y="0.5"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="#000"
+            fontSize="4.5"
+            fontFamily="monospace"
+            fontWeight="bold"
+          >
+            基金
+          </text>
+        </g>
+      )}
+
       {/* Partner badges */}
       {shownKeys.map((key, i) => {
         const partner = PARTNERS[key];

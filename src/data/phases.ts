@@ -38,10 +38,12 @@ export const PHASES: Phase[] = [
     color: '#3B82F6',
     crewCount: 0,
     activeInfraIds: [
-      'slim', 'lupex', 'gateway_core', 'relay_satellite'
+      'slim', 'lupex', 'gateway_core', 'relay_satellite',
+      'fund_thz_ground', 'fund_precision_lander'
     ],
     newInPhase: [
-      'slim', 'lupex', 'gateway_core', 'relay_satellite'
+      'slim', 'lupex', 'gateway_core', 'relay_satellite',
+      'fund_thz_ground', 'fund_precision_lander'
     ],
     milestones: [
       { year: '2024', event: 'SLIM月面着陸成功（日本初）', category: 'mission' },
@@ -71,11 +73,13 @@ export const PHASES: Phase[] = [
     activeInfraIds: [
       'slim', 'lupex', 'gateway_full', 'relay_satellite',
       'lunar_lander', 'surface_habitat_s', 'pressurized_rover',
-      'solar_power_s', 'isru_pilot', 'seismometer_net'
+      'solar_power_s', 'isru_pilot', 'seismometer_net',
+      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
     ],
     newInPhase: [
       'gateway_full', 'lunar_lander', 'surface_habitat_s',
-      'pressurized_rover', 'solar_power_s', 'isru_pilot', 'seismometer_net'
+      'pressurized_rover', 'solar_power_s', 'isru_pilot', 'seismometer_net',
+      'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
     ],
     milestones: [
       { year: '2030', event: 'Gateway：完成（HALO＋居住モジュール）', category: 'infrastructure' },
@@ -107,12 +111,15 @@ export const PHASES: Phase[] = [
       'lunar_lander', 'surface_habitat_m', 'pressurized_rover',
       'solar_power_m', 'nuclear_power', 'isru_full',
       'propellant_plant', 'seismometer_net', 'lunar_telescope',
-      'sample_return', 'construction_robot', 'mining_robot'
+      'sample_return', 'construction_robot', 'mining_robot',
+      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
+      'fund_am241_power', 'fund_infra_demo'
     ],
     newInPhase: [
       'relay_satellite_full', 'surface_habitat_m', 'solar_power_m',
       'nuclear_power', 'isru_full', 'propellant_plant',
-      'lunar_telescope', 'sample_return', 'construction_robot', 'mining_robot'
+      'lunar_telescope', 'sample_return', 'construction_robot', 'mining_robot',
+      'fund_am241_power', 'fund_infra_demo'
     ],
     milestones: [
       { year: '2035', event: '月面天文台：建設開始（電波干渉計）', category: 'science' },
@@ -146,7 +153,9 @@ export const PHASES: Phase[] = [
       'propellant_plant', 'seismometer_net', 'lunar_telescope',
       'sample_return', 'construction_robot', 'mining_robot',
       'biolab', 'manufacturing_hub', 'tourism_hub',
-      'regolith_3dprint', 'lunar_comms_net', 'medical_center'
+      'regolith_3dprint', 'lunar_comms_net', 'medical_center',
+      'fund_thz_ground', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
+      'fund_am241_power', 'fund_infra_demo'
     ],
     newInPhase: [
       'surface_habitat_l', 'solar_power_l', 'biolab',

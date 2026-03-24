@@ -90,6 +90,41 @@ export function ElementDetail({ infra }: Props) {
           <span className="text-[#9CA3AF]">参照：</span>{infra.detail.scenarioRef}
         </p>
       </div>
+
+      {/* 情報源バッジ（宇宙戦略基金の場合は外部リンクも表示） */}
+      {infra.source === 'fund' ? (
+        <div className="flex items-center justify-between bg-[#3D2A0A] rounded p-3 border border-[#F59E0B]/25">
+          <div className="flex items-center gap-2">
+            <span
+              className="text-[9px] px-2 py-0.5 rounded-full font-medium"
+              style={{ backgroundColor: 'rgba(245,158,11,0.2)', color: '#F59E0B', border: '1px solid rgba(245,158,11,0.4)' }}
+            >
+              宇宙戦略基金
+            </span>
+            <span className="text-[9px] text-[#9CA3AF]">JAXA 探査テーマ</span>
+          </div>
+          {infra.fundUrl && (
+            <a
+              href={infra.fundUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[9px] text-[#F59E0B] hover:text-[#FCD34D] transition-colors underline underline-offset-1 shrink-0"
+            >
+              公式ページ→
+            </a>
+          )}
+        </div>
+      ) : (
+        <div className="flex items-center gap-2 bg-[#1E3A5F] rounded p-3 border border-[#60A5FA]/25">
+          <span
+            className="text-[9px] px-2 py-0.5 rounded-full font-medium"
+            style={{ backgroundColor: 'rgba(96,165,250,0.15)', color: '#60A5FA', border: '1px solid rgba(96,165,250,0.35)' }}
+          >
+            探査シナリオ
+          </span>
+          <span className="text-[9px] text-[#9CA3AF]">国際宇宙探査シナリオ案2025</span>
+        </div>
+      )}
     </div>
   );
 }
