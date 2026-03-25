@@ -77,7 +77,15 @@ export function InfraElementComponent({ infra }: Props) {
   const badgeY = y + r + 14;
 
   const cgImage = INFRA_CG_IMAGES[infra.id];
-  const clipId = `cg-clip-${infra.id}`;
+
+  // CG image: square bounding box sized by displaySize, bottom anchored at (x, y)
+  const sz = Math.min(Math.round(55 * (infra.displaySize ?? 1)), 130);
+  const imgX = x - sz / 2;
+  const imgY = y - sz;
+
+  // Badge row: just below the label
+  const cgBadgeY = y + 18;
+  const cgBadgeStartX = x - totalBadgeW / 2;
 
   return (
     <motion.g
@@ -93,172 +101,203 @@ export function InfraElementComponent({ infra }: Props) {
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') selectInfra(isSelected ? null : infra.id); }}
     >
-      {/* Selection glow */}
-      {isSelected && (
-        <circle cx={x} cy={y} r={r + 8} fill={color} opacity={0.2} />
-      )}
-
-      {/* New-in-phase pulse ring */}
-      {isNew && (
-        <motion.circle
-          cx={x}
-          cy={y}
-          r={r + 2}
-          fill="none"
-          stroke={color}
-          strokeWidth="2"
-          initial={{ r: r - 2, opacity: 0.9 }}
-          animate={{ r: r + 12, opacity: 0 }}
-          transition={{ duration: 2, repeat: 3, ease: 'easeOut' }}
-        />
-      )}
-
       {cgImage ? (
         <>
-          {/* Clip path for circular CG icon */}
-          <defs>
-            <clipPath id={clipId}>
-              <circle cx={x} cy={y} r={r - 1} />
-            </clipPath>
-          </defs>
-          {/* Dark background so image edges don't bleed */}
-          <circle cx={x} cy={y} r={r} fill="#050A14" opacity={0.75} />
-          {/* CG image clipped to circle */}
+          {/* Selection highlight behind image */}
+          {isSelected && (
+            <rect
+              x={imgX - 4} y={imgY - 4}
+              width={sz + 8} height={sz + 8}
+              rx={4} fill={color} opacity={0.15}
+            />
+          )}
+
+          {/* New-in-phase pulse at base (ground level) */}
+          {isNew && (
+            <motion.circle
+              cx={x} cy={y}
+              r={8}
+              fill="none"
+              stroke={color}
+              strokeWidth="2"
+              initial={{ r: 5, opacity: 0.9 }}
+              animate={{ r: sz * 0.6, opacity: 0 }}
+              transition={{ duration: 2, repeat: 3, ease: 'easeOut' }}
+            />
+          )}
+
+          {/* CG image — black background removed via screen blend */}
           <image
             href={cgImage}
-            x={x - r}
-            y={y - r}
-            width={r * 2}
-            height={r * 2}
-            clipPath={`url(#${clipId})`}
-            preserveAspectRatio="xMidYMid slice"
+            x={imgX}
+            y={imgY}
+            width={sz}
+            height={sz}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const }}
           />
-          {/* Colored border ring */}
-          <circle
-            cx={x} cy={y} r={r}
-            fill="none"
-            stroke={color}
-            strokeWidth={isSelected ? 2.5 : 1.5}
-            opacity={isSelected ? 1 : 0.85}
-          />
-          {/* Selection inner highlight */}
+
+          {/* Invisible click overlay */}
+          <rect x={imgX} y={imgY} width={sz} height={sz} fill="transparent" />
+
+          {/* Selection border */}
           {isSelected && (
-            <circle cx={x} cy={y} r={r - 1} fill={color} opacity={0.18} />
+            <rect
+              x={imgX - 3} y={imgY - 3}
+              width={sz + 6} height={sz + 6}
+              rx={4} fill="none"
+              stroke={color} strokeWidth={2} opacity={0.9}
+            />
+          )}
+
+          {/* Label */}
+          <text
+            x={x} y={y + 10}
+            textAnchor="middle"
+            fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
+            fontSize="8"
+            fontFamily="'Noto Sans JP', sans-serif"
+            fontWeight={isSelected ? 'bold' : 'normal'}
+          >
+            {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
+          </text>
+
+          {/* 宇宙戦略基金バッジ */}
+          {infra.source === 'fund' && (
+            <g transform={`translate(${imgX + sz - 2}, ${imgY + 2})`}>
+              <defs>
+                <clipPath id={`fund-crane-${infra.id}`}>
+                  <circle cx="0" cy="0" r="5" />
+                </clipPath>
+              </defs>
+              <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
+              <image
+                href="/SSF_logo_white.png"
+                x="-5.5" y="-6"
+                width="24" height="12"
+                clipPath={`url(#fund-crane-${infra.id})`}
+                preserveAspectRatio="xMidYMid meet"
+              />
+            </g>
+          )}
+
+          {/* Partner badges */}
+          {shownKeys.map((key, i) => {
+            const partner = PARTNERS[key];
+            const bx = cgBadgeStartX + i * (BADGE_W + BADGE_GAP);
+            return (
+              <g key={key}>
+                <rect x={bx} y={cgBadgeY} width={BADGE_W} height={BADGE_H} rx={2}
+                  fill={partner.color} fillOpacity={0.22}
+                  stroke={partner.color} strokeOpacity={0.6} strokeWidth={0.5} />
+                <text x={bx + BADGE_W / 2} y={cgBadgeY + BADGE_H / 2 + 0.5}
+                  textAnchor="middle" dominantBaseline="middle"
+                  fill={partner.color} fontSize="5" fontFamily="monospace">
+                  {key === 'Private' ? '民間' : key}
+                </text>
+              </g>
+            );
+          })}
+          {extraCount > 0 && (
+            <g>
+              <rect x={cgBadgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP)} y={cgBadgeY}
+                width={18} height={BADGE_H} rx={2}
+                fill="#374151" fillOpacity={0.8} stroke="#6B7280" strokeOpacity={0.5} strokeWidth={0.5} />
+              <text x={cgBadgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP) + 9} y={cgBadgeY + BADGE_H / 2 + 0.5}
+                textAnchor="middle" dominantBaseline="middle"
+                fill="#9CA3AF" fontSize="5" fontFamily="monospace">
+                +{extraCount}
+              </text>
+            </g>
           )}
         </>
       ) : (
         <>
-          {/* Background circle (emoji fallback) */}
-          <circle
-            cx={x}
-            cy={y}
-            r={r}
+          {/* Selection glow (emoji fallback) */}
+          {isSelected && (
+            <circle cx={x} cy={y} r={r + 8} fill={color} opacity={0.2} />
+          )}
+
+          {/* New-in-phase pulse ring */}
+          {isNew && (
+            <motion.circle
+              cx={x} cy={y} r={r + 2}
+              fill="none" stroke={color} strokeWidth="2"
+              initial={{ r: r - 2, opacity: 0.9 }}
+              animate={{ r: r + 12, opacity: 0 }}
+              transition={{ duration: 2, repeat: 3, ease: 'easeOut' }}
+            />
+          )}
+
+          {/* Background circle */}
+          <circle cx={x} cy={y} r={r}
             fill={isSelected ? color : '#1F2937'}
             stroke={color}
             strokeWidth={isSelected ? 2 : 1.5}
             opacity={isSelected ? 0.95 : 0.85}
           />
+
           {/* Emoji icon */}
-          <text
-            x={x}
-            y={y + Math.round(fontSize * 0.4)}
-            textAnchor="middle"
-            fontSize={fontSize}
-            style={{ userSelect: 'none' }}
-          >
+          <text x={x} y={y + Math.round(fontSize * 0.4)}
+            textAnchor="middle" fontSize={fontSize}
+            style={{ userSelect: 'none' }}>
             {infra.emoji}
           </text>
-        </>
-      )}
 
-      {/* Label */}
-      <text
-        x={x}
-        y={y + r + 10}
-        textAnchor="middle"
-        fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
-        fontSize="8"
-        fontFamily="'Noto Sans JP', sans-serif"
-        fontWeight={isSelected ? 'bold' : 'normal'}
-      >
-        {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
-      </text>
-
-      {/* 宇宙戦略基金バッジ（鶴マーク） */}
-      {infra.source === 'fund' && (
-        <g transform={`translate(${x + r - 2}, ${y - r + 2})`}>
-          <defs>
-            <clipPath id={`fund-crane-${infra.id}`}>
-              <circle cx="0" cy="0" r="5" />
-            </clipPath>
-          </defs>
-          <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
-          <image
-            href="/SSF_logo_white.png"
-            x="-5.5" y="-6"
-            width="24" height="12"
-            clipPath={`url(#fund-crane-${infra.id})`}
-            preserveAspectRatio="xMidYMid meet"
-          />
-        </g>
-      )}
-
-      {/* Partner badges */}
-      {shownKeys.map((key, i) => {
-        const partner = PARTNERS[key];
-        const bx = badgeStartX + i * (BADGE_W + BADGE_GAP);
-        return (
-          <g key={key}>
-            <rect
-              x={bx} y={badgeY}
-              width={BADGE_W} height={BADGE_H}
-              rx={2}
-              fill={partner.color}
-              fillOpacity={0.22}
-              stroke={partner.color}
-              strokeOpacity={0.6}
-              strokeWidth={0.5}
-            />
-            <text
-              x={bx + BADGE_W / 2}
-              y={badgeY + BADGE_H / 2 + 0.5}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={partner.color}
-              fontSize="5"
-              fontFamily="monospace"
-            >
-              {key === 'Private' ? '民間' : key}
-            </text>
-          </g>
-        );
-      })}
-      {/* "+N more" badge */}
-      {extraCount > 0 && (
-        <g>
-          <rect
-            x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP)}
-            y={badgeY}
-            width={18} height={BADGE_H}
-            rx={2}
-            fill="#374151"
-            fillOpacity={0.8}
-            stroke="#6B7280"
-            strokeOpacity={0.5}
-            strokeWidth={0.5}
-          />
-          <text
-            x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP) + 9}
-            y={badgeY + BADGE_H / 2 + 0.5}
+          {/* Label */}
+          <text x={x} y={y + r + 10}
             textAnchor="middle"
-            dominantBaseline="middle"
-            fill="#9CA3AF"
-            fontSize="5"
-            fontFamily="monospace"
-          >
-            +{extraCount}
+            fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
+            fontSize="8"
+            fontFamily="'Noto Sans JP', sans-serif"
+            fontWeight={isSelected ? 'bold' : 'normal'}>
+            {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
           </text>
-        </g>
+
+          {/* 宇宙戦略基金バッジ */}
+          {infra.source === 'fund' && (
+            <g transform={`translate(${x + r - 2}, ${y - r + 2})`}>
+              <defs>
+                <clipPath id={`fund-crane-${infra.id}`}>
+                  <circle cx="0" cy="0" r="5" />
+                </clipPath>
+              </defs>
+              <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
+              <image href="/SSF_logo_white.png" x="-5.5" y="-6" width="24" height="12"
+                clipPath={`url(#fund-crane-${infra.id})`} preserveAspectRatio="xMidYMid meet" />
+            </g>
+          )}
+
+          {/* Partner badges */}
+          {shownKeys.map((key, i) => {
+            const partner = PARTNERS[key];
+            const bx = badgeStartX + i * (BADGE_W + BADGE_GAP);
+            return (
+              <g key={key}>
+                <rect x={bx} y={badgeY} width={BADGE_W} height={BADGE_H} rx={2}
+                  fill={partner.color} fillOpacity={0.22}
+                  stroke={partner.color} strokeOpacity={0.6} strokeWidth={0.5} />
+                <text x={bx + BADGE_W / 2} y={badgeY + BADGE_H / 2 + 0.5}
+                  textAnchor="middle" dominantBaseline="middle"
+                  fill={partner.color} fontSize="5" fontFamily="monospace">
+                  {key === 'Private' ? '民間' : key}
+                </text>
+              </g>
+            );
+          })}
+          {extraCount > 0 && (
+            <g>
+              <rect x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP)} y={badgeY}
+                width={18} height={BADGE_H} rx={2}
+                fill="#374151" fillOpacity={0.8} stroke="#6B7280" strokeOpacity={0.5} strokeWidth={0.5} />
+              <text x={badgeStartX + shownKeys.length * (BADGE_W + BADGE_GAP) + 9} y={badgeY + BADGE_H / 2 + 0.5}
+                textAnchor="middle" dominantBaseline="middle"
+                fill="#9CA3AF" fontSize="5" fontFamily="monospace">
+                +{extraCount}
+              </text>
+            </g>
+          )}
+        </>
       )}
     </motion.g>
   );
