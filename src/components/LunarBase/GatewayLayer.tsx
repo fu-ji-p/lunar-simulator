@@ -230,7 +230,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
             {positions.map((p, i) => (
               <image
                 key={i}
-                href="/lnss_satellites.jpg"
+                href="/Gemini_Generated_Image_hzfmywhzfmywhzfm.png"
                 x={p.x} y={p.y}
                 width={SAT_W} height={SAT_W}
                 preserveAspectRatio="xMidYMid meet"
