@@ -219,20 +219,13 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           />
           <rect x="188" y="128" width="64" height="64" fill="transparent" />
           {/* SSF badge */}
-          <g transform="translate(253, 130)">
-            <defs>
-              <clipPath id="thz-sat-crane-clip">
-                <circle cx="0" cy="0" r="5" />
-              </clipPath>
-            </defs>
-            <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
-            <image
-              href="/SSF_logo_white.png"
-              x="-4.2" y="-4.7"
-              width="19" height="9.5"
-              clipPath="url(#thz-sat-crane-clip)"
-            />
-          </g>
+          <image
+            href="/SSF_logo_white.png"
+            x="238" y="128"
+            width="20" height="10"
+            preserveAspectRatio="xMidYMid meet"
+            opacity="0.92"
+          />
           <text x="220" y="200" textAnchor="middle" fill="#C4B5FD" fontSize="8" fontFamily="sans-serif">
             THz探査衛星
           </text>

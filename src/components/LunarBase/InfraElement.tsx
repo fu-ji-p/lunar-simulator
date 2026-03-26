@@ -198,21 +198,13 @@ export function InfraElementComponent({ infra }: Props) {
 
           {/* 宇宙戦略基金バッジ */}
           {infra.source === 'fund' && (
-            <g transform={`translate(${imgX + sz - 2}, ${imgY + 2})`}>
-              <defs>
-                <clipPath id={`fund-crane-${infra.id}`}>
-                  <circle cx="0" cy="0" r="5" />
-                </clipPath>
-              </defs>
-              <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
-              <image
-                href="/SSF_logo_white.png"
-                x="-5.5" y="-6"
-                width="24" height="12"
-                clipPath={`url(#fund-crane-${infra.id})`}
-                preserveAspectRatio="xMidYMid meet"
-              />
-            </g>
+            <image
+              href="/SSF_logo_white.png"
+              x={imgX + sz - 16} y={imgY + 2}
+              width="20" height="10"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.92"
+            />
           )}
 
           {/* Partner badges */}
@@ -290,16 +282,13 @@ export function InfraElementComponent({ infra }: Props) {
 
           {/* 宇宙戦略基金バッジ */}
           {infra.source === 'fund' && (
-            <g transform={`translate(${x + r - 2}, ${y - r + 2})`}>
-              <defs>
-                <clipPath id={`fund-crane-${infra.id}`}>
-                  <circle cx="0" cy="0" r="5" />
-                </clipPath>
-              </defs>
-              <circle cx="0" cy="0" r="5" fill="#F59E0B" fillOpacity="0.95" />
-              <image href="/SSF_logo_white.png" x="-5.5" y="-6" width="24" height="12"
-                clipPath={`url(#fund-crane-${infra.id})`} preserveAspectRatio="xMidYMid meet" />
-            </g>
+            <image
+              href="/SSF_logo_white.png"
+              x={x + r - 8} y={y - r - 4}
+              width="20" height="10"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.92"
+            />
           )}
 
           {/* Partner badges */}
