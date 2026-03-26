@@ -187,9 +187,22 @@ export function GatewayLayer({ onSelectInfra }: Props) {
 
       {/* LNSS Navigation Satellites (宇宙戦略基金) */}
       {showFund && phase.activeInfraIds.includes('fund_lnss_ground') && (() => {
-        const satCount = (currentPhase === 'phase2') ? t('3機', '3 sats') : t('6機', '6 sats');
+        const SAT_W = 36;
+        const satCount = currentPhase === 'phase2' ? 3 : 6;
+        // Arc positions (image top-left corner) for up to 6 satellites
+        const ALL_POSITIONS = [
+          { x: 42,  y: 88 },
+          { x: 104, y: 65 },
+          { x: 166, y: 50 },
+          { x: 228, y: 45 },
+          { x: 290, y: 50 },
+          { x: 352, y: 65 },
+        ];
+        const positions = ALL_POSITIONS.slice(0, satCount);
         const isNew = phase.newInPhase.includes('fund_lnss_ground');
         const isSelected = selectedInfraId === 'fund_lnss_ground';
+        const labelX = positions[0].x + SAT_W / 2;
+        const labelY = positions[0].y + SAT_W + 12;
         return (
           <motion.g
             initial={{ opacity: 0, scale: 0.5 }}
@@ -199,37 +212,45 @@ export function GatewayLayer({ onSelectInfra }: Props) {
             onClick={() => onSelectInfra('fund_lnss_ground')}
             aria-label="LNSS測位衛星システム"
           >
-            {isSelected && (
-              <circle cx="100" cy="120" r="36" fill="#6366F1" opacity="0.12" />
-            )}
+            {/* Selection glow per satellite */}
+            {isSelected && positions.map((p, i) => (
+              <circle key={i} cx={p.x + SAT_W / 2} cy={p.y + SAT_W / 2} r={22} fill="#6366F1" opacity="0.12" />
+            ))}
+            {/* New-in-phase pulse on first satellite */}
             {isNew && (
               <motion.circle
-                cx="100" cy="120" r="20"
+                cx={positions[0].x + SAT_W / 2} cy={positions[0].y + SAT_W / 2} r={20}
                 fill="none" stroke={phase.color} strokeWidth="2"
                 initial={{ r: 14, opacity: 0.8 }}
-                animate={{ r: 32, opacity: 0 }}
+                animate={{ r: 30, opacity: 0 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
             )}
-            {/* CG LNSS satellite image — replace with generated image */}
-            <image
-              href="/lnss_satellites.jpg"
-              x="68" y="88"
-              width="64" height="64"
-              preserveAspectRatio="xMidYMid meet"
-              style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 8px rgba(99,102,241,0.85)) brightness(1.05)' }}
-            />
-            <rect x="68" y="88" width="64" height="64" fill="transparent" />
-            {/* SSF badge */}
+            {/* Satellite images */}
+            {positions.map((p, i) => (
+              <image
+                key={i}
+                href="/lnss_satellites.jpg"
+                x={p.x} y={p.y}
+                width={SAT_W} height={SAT_W}
+                preserveAspectRatio="xMidYMid meet"
+                style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 6px rgba(99,102,241,0.85)) brightness(1.05)' }}
+              />
+            ))}
+            {/* Click overlay per satellite */}
+            {positions.map((p, i) => (
+              <rect key={i} x={p.x} y={p.y} width={SAT_W} height={SAT_W} fill="transparent" />
+            ))}
+            {/* SSF badge on first satellite */}
             <image
               href="/SSF_logo_white.png"
-              x="116" y="88"
+              x={positions[0].x + SAT_W - 8} y={positions[0].y}
               width="20" height="10"
               preserveAspectRatio="xMidYMid meet"
               opacity="0.92"
             />
-            <text x="100" y="162" textAnchor="middle" fill="#A5B4FC" fontSize="8" fontFamily="sans-serif">
-              {t('LNSS衛星', 'LNSS')} ({satCount})
+            <text x={labelX} y={labelY} textAnchor="middle" fill="#A5B4FC" fontSize="8" fontFamily="sans-serif">
+              {t('LNSS衛星', 'LNSS')} ({t(`${satCount}機`, `${satCount} sats`)})
             </text>
           </motion.g>
         );
