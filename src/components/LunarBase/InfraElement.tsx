@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import type { InfraElement as InfraElementType } from '../../data/infrastructure';
 import { PHASES } from '../../data/phases';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { useT } from '../../hooks/useT';
 import { INFRA_PARTNERS, PARTNERS } from '../../data/partners';
 
 // Convert 0-100 percent position to SVG coordinates
@@ -66,17 +67,17 @@ const INFRA_CG_IMAGES: Record<string, string> = {
 
 // Phase-specific name/size overrides for "upgrading" assets
 // (assets that persist across phases with evolving names/sizes)
-const PHASE_OVERRIDES: Record<string, Partial<Record<string, { name: string; displaySize: number }>>> = {
+const PHASE_OVERRIDES: Record<string, Partial<Record<string, { name: string; nameEn: string; displaySize: number }>>> = {
   surface_habitat_l: {
-    phase2: { name: '月面居住ユニット（小）', displaySize: 1.3 },
-    phase3: { name: '月面居住モジュール（中）', displaySize: 1.8 },
+    phase2: { name: '月面居住ユニット（小）',   nameEn: 'Lunar Surface Habitat (Small)',  displaySize: 1.3 },
+    phase3: { name: '月面居住モジュール（中）', nameEn: 'Lunar Surface Habitat (Medium)', displaySize: 1.8 },
   },
   solar_power_l: {
-    phase2: { name: '太陽電池アレイ（初期）', displaySize: 1.1 },
-    phase3: { name: '大型太陽電池アレイ', displaySize: 1.4 },
+    phase2: { name: '太陽電池アレイ（初期）', nameEn: 'Solar Power Array (Initial)', displaySize: 1.1 },
+    phase3: { name: '大型太陽電池アレイ',     nameEn: 'Large Solar Power Array',     displaySize: 1.4 },
   },
   isru_full: {
-    phase2: { name: 'ISRUパイロットプラント', displaySize: 1.2 },
+    phase2: { name: 'ISRUパイロットプラント', nameEn: 'ISRU Pilot Plant', displaySize: 1.2 },
   },
 };
 
@@ -88,6 +89,7 @@ const BADGE_MAX = 3;
 
 export function InfraElementComponent({ infra }: Props) {
   const { currentPhase, selectedInfraId, selectInfra } = useSimulatorStore();
+  const { lang } = useT();
   const phase = PHASES.find(p => p.id === currentPhase)!;
   const isNew = phase.newInPhase.includes(infra.id);
   const isSelected = selectedInfraId === infra.id;
@@ -96,7 +98,9 @@ export function InfraElementComponent({ infra }: Props) {
 
   // Apply phase-specific name/size overrides for upgrading assets
   const override = PHASE_OVERRIDES[infra.id]?.[currentPhase];
-  const displayName = override?.name ?? infra.name;
+  const displayName = lang === 'en'
+    ? (override?.nameEn ?? infra.nameEn)
+    : (override?.name ?? infra.name);
   const displaySize = override?.displaySize ?? (infra.displaySize ?? 1);
 
   // Scale radius based on real-world size. Base r=16 = standard unit.
@@ -277,7 +281,7 @@ export function InfraElementComponent({ infra }: Props) {
             fontSize="8"
             fontFamily="'Noto Sans JP', sans-serif"
             fontWeight={isSelected ? 'bold' : 'normal'}>
-            {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
+            {displayName.length > 10 ? displayName.slice(0, 9) + '…' : displayName}
           </text>
 
           {/* 宇宙戦略基金バッジ */}

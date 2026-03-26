@@ -154,7 +154,7 @@ export function LunarBaseView() {
           fontFamily="'Orbitron', monospace"
           opacity="0.8"
         >
-          {phase.period} — {phase.crewCount}名常駐
+          {phase.period} — {phase.crewCount}{t('名常駐', ' crew')}
         </text>
       </svg>
     </div>

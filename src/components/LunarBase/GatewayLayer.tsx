@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { PHASES } from '../../data/phases';
 import { useSimulatorStore } from '../../store/simulatorStore';
+import { useT } from '../../hooks/useT';
 
 interface Props {
   onSelectInfra: (id: string) => void;
@@ -8,6 +9,7 @@ interface Props {
 
 export function GatewayLayer({ onSelectInfra }: Props) {
   const { currentPhase, selectedInfraId, showFund } = useSimulatorStore();
+  const { t } = useT();
   const phase = PHASES.find(p => p.id === currentPhase)!;
 
   const showGateway = phase.activeInfraIds.includes('gateway_core') || phase.activeInfraIds.includes('gateway_full');
@@ -78,7 +80,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           <rect x="427" y="5" width="146" height="95" fill="transparent" />
           {/* Label */}
           <text x="500" y="112" textAnchor="middle" fill="#E5E7EB" fontSize="9" fontFamily="sans-serif">
-            {gatewayFull ? 'Gateway（完成）' : 'Gateway'}
+            {gatewayFull ? t('Gateway（完成）', 'Gateway (Full)') : 'Gateway'}
           </text>
         </motion.g>
       )}
@@ -121,7 +123,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           />
           <rect x="708" y="52" width="84" height="84" fill="transparent" />
           <text x="750" y="146" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
-            📡 中継衛星
+            📡 {t('中継衛星', 'Relay Satellite')}
           </text>
         </motion.g>
       )}
@@ -164,7 +166,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           />
           <rect x="316" y="210" width="68" height="90" fill="transparent" />
           <text x="350" y="312" textAnchor="middle" fill="#9CA3AF" fontSize="8" fontFamily="sans-serif">
-            🚀 着陸機
+            🚀 {t('着陸機', 'Lander')}
           </text>
         </motion.g>
       )}
@@ -227,7 +229,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
             opacity="0.92"
           />
           <text x="220" y="200" textAnchor="middle" fill="#C4B5FD" fontSize="8" fontFamily="sans-serif">
-            THz探査衛星
+            {t('THz探査衛星', 'THz Sensing Sat.')}
           </text>
         </motion.g>
       )}
