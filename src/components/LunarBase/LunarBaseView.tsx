@@ -140,7 +140,7 @@ export function LunarBaseView() {
         {/* Layer 5: Surface infrastructure */}
         <AnimatePresence mode="sync">
           {surfaceInfra.map(infra => (
-            <InfraElementComponent key={`${infra.id}-${currentPhase}`} infra={infra} />
+            <InfraElementComponent key={infra.id} infra={infra} />
           ))}
         </AnimatePresence>
 

@@ -66,7 +66,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG Gateway station image */}
           <image
-            href="/Gemini_Generated_Image_sav6pisav6pisav6.png"
+            href="/Gemini_Generated_Image_sav6pisav6pisav6.jpg"
             x="427"
             y="5"
             width="146"
@@ -111,7 +111,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG relay satellite image */}
           <image
-            href="/Gemini_Generated_Image_k0riblk0riblk0ri.png"
+            href="/Gemini_Generated_Image_k0riblk0riblk0ri.jpg"
             x="708"
             y="52"
             width="84"
@@ -154,7 +154,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG lander image */}
           <image
-            href="/Gemini_Generated_Image_y4knh3y4knh3y4kn.png"
+            href="/Gemini_Generated_Image_y4knh3y4knh3y4kn.jpg"
             x="316"
             y="210"
             width="68"
@@ -209,15 +209,17 @@ export function GatewayLayer({ onSelectInfra }: Props) {
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
-          {/* Satellite body */}
-          <rect x="214" y="149" width="12" height="12" rx="2" fill="#8B5CF6" />
-          {/* Solar panels */}
-          <rect x="200" y="152" width="12" height="4" rx="1" fill="#FCD34D" opacity="0.9" />
-          <rect x="228" y="152" width="12" height="4" rx="1" fill="#FCD34D" opacity="0.9" />
-          {/* Sensor dish */}
-          <path d="M220,149 L220,143 L215,146 Z" fill="#A78BFA" />
-          {/* SSF crane badge (top-right of satellite body) */}
-          <g transform="translate(227, 147)">
+          {/* CG THz satellite image */}
+          <image
+            href="/Gemini_Generated_Image_8r70cg8r70cg8r70.jpg"
+            x="188" y="128"
+            width="64" height="64"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 8px rgba(139,92,246,0.9)) brightness(1.05)' }}
+          />
+          <rect x="188" y="128" width="64" height="64" fill="transparent" />
+          {/* SSF badge */}
+          <g transform="translate(253, 130)">
             <defs>
               <clipPath id="thz-sat-crane-clip">
                 <circle cx="0" cy="0" r="5" />
@@ -231,8 +233,8 @@ export function GatewayLayer({ onSelectInfra }: Props) {
               clipPath="url(#thz-sat-crane-clip)"
             />
           </g>
-          <text x="220" y="172" textAnchor="middle" fill="#C4B5FD" fontSize="8" fontFamily="sans-serif">
-            🛰️ THz探査衛星
+          <text x="220" y="200" textAnchor="middle" fill="#C4B5FD" fontSize="8" fontFamily="sans-serif">
+            THz探査衛星
           </text>
         </motion.g>
       )}

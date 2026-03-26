@@ -72,13 +72,13 @@ export const PHASES: Phase[] = [
     crewCount: 4,
     activeInfraIds: [
       'slim', 'lupex', 'gateway_full', 'relay_satellite',
-      'lunar_lander', 'surface_habitat_s', 'pressurized_rover',
-      'solar_power_s', 'isru_pilot', 'seismometer_net',
+      'lunar_lander', 'surface_habitat_l', 'pressurized_rover',
+      'solar_power_l', 'isru_full', 'seismometer_net',
       'fund_thz_satellite', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
     ],
     newInPhase: [
-      'gateway_full', 'lunar_lander', 'surface_habitat_s',
-      'pressurized_rover', 'solar_power_s', 'isru_pilot', 'seismometer_net',
+      'gateway_full', 'lunar_lander', 'surface_habitat_l',
+      'pressurized_rover', 'solar_power_l', 'isru_full', 'seismometer_net',
       'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground'
     ],
     milestones: [
@@ -108,16 +108,15 @@ export const PHASES: Phase[] = [
     crewCount: 10,
     activeInfraIds: [
       'gateway_full', 'relay_satellite_full',
-      'lunar_lander', 'surface_habitat_m', 'pressurized_rover',
-      'solar_power_m', 'nuclear_power', 'isru_full',
+      'lunar_lander', 'surface_habitat_l', 'pressurized_rover',
+      'solar_power_l', 'nuclear_power', 'isru_full',
       'propellant_plant', 'seismometer_net', 'lunar_telescope',
       'sample_return', 'construction_robot', 'mining_robot',
       'fund_thz_satellite', 'fund_regen_fc', 'fund_lnss_ground', 'fund_comm_ground',
       'fund_am241_power', 'fund_infra_demo'
     ],
     newInPhase: [
-      'relay_satellite_full', 'surface_habitat_m', 'solar_power_m',
-      'nuclear_power', 'isru_full', 'propellant_plant',
+      'relay_satellite_full', 'nuclear_power', 'propellant_plant',
       'lunar_telescope', 'sample_return', 'construction_robot', 'mining_robot',
       'fund_am241_power', 'fund_infra_demo'
     ],

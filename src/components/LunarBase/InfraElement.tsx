@@ -29,44 +29,55 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 // CG image mapping: infra id → public image path
 const INFRA_CG_IMAGES: Record<string, string> = {
-  // Habitat
-  surface_habitat_s:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
-  surface_habitat_m:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
-  surface_habitat_l:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
+  // Habitat (single canonical ID: surface_habitat_l)
+  surface_habitat_l:    '/Gemini_Generated_Image_ixusbtixusbtixus.jpg',
   // Medical
-  medical_center:       '/Gemini_Generated_Image_ne9co3ne9co3ne9c.png',
-  // Energy
-  solar_power_s:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
-  solar_power_m:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
-  solar_power_l:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
-  nuclear_power:        '/Gemini_Generated_Image_2g3x4c2g3x4c2g3x.png',
-  fund_regen_fc:        '/Gemini_Generated_Image_38wbir38wbir38wb.png',
-  fund_am241_power:     '/Gemini_Generated_Image_p5gijkp5gijkp5gi.png',
-  // ISRU
-  lupex:                '/Gemini_Generated_Image_7t8fkg7t8fkg7t8f.png',
-  isru_pilot:           '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
-  isru_full:            '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
-  propellant_plant:     '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
-  mining_robot:         '/Gemini_Generated_Image_s2xyuos2xyuos2xy.png',
+  medical_center:       '/Gemini_Generated_Image_ne9co3ne9co3ne9c.jpg',
+  // Energy (single canonical ID: solar_power_l)
+  solar_power_l:        '/Gemini_Generated_Image_629fd629fd629fd6.jpg',
+  nuclear_power:        '/Gemini_Generated_Image_2g3x4c2g3x4c2g3x.jpg',
+  fund_regen_fc:        '/Gemini_Generated_Image_38wbir38wbir38wb.jpg',
+  fund_am241_power:     '/Gemini_Generated_Image_p5gijkp5gijkp5gi.jpg',
+  // ISRU (single canonical ID: isru_full)
+  isru_full:            '/Gemini_Generated_Image_b0c8spb0c8spb0c8.jpg',
+  lupex:                '/Gemini_Generated_Image_7t8fkg7t8fkg7t8f.jpg',
+  propellant_plant:     '/Gemini_Generated_Image_b0c8spb0c8spb0c8.jpg',
+  mining_robot:         '/Gemini_Generated_Image_s2xyuos2xyuos2xy.jpg',
   // Exploration
-  slim:                 '/Gemini_Generated_Image_sh4cmnsh4cmnsh4c.png',
-  pressurized_rover:    '/Gemini_Generated_Image_ehuimlehuimlehui.png',
-  construction_robot:   '/Gemini_Generated_Image_vuob3evuob3evuob.png',
-  fund_precision_lander:'/Gemini_Generated_Image_h2e0geh2e0geh2e0.png',
+  slim:                 '/Gemini_Generated_Image_sh4cmnsh4cmnsh4c.jpg',
+  pressurized_rover:    '/Gemini_Generated_Image_ehuimlehuimlehui.jpg',
+  construction_robot:   '/Gemini_Generated_Image_vuob3evuob3evuob.jpg',
+  fund_precision_lander:'/Gemini_Generated_Image_h2e0geh2e0geh2e0.jpg',
   // Science
-  seismometer_net:      '/Gemini_Generated_Image_heaxfjheaxfjheax.png',
-  lunar_telescope:      '/Gemini_Generated_Image_x617ksx617ksx617.png',
-  sample_return:        '/Gemini_Generated_Image_7gbdzj7gbdzj7gbd.png',
-  fund_infra_demo:      '/Gemini_Generated_Image_s3dv35s3dv35s3dv.png',
+  seismometer_net:      '/Gemini_Generated_Image_heaxfjheaxfjheax.jpg',
+  lunar_telescope:      '/Gemini_Generated_Image_x617ksx617ksx617.jpg',
+  sample_return:        '/Gemini_Generated_Image_7gbdzj7gbdzj7gbd.jpg',
+  fund_infra_demo:      '/Gemini_Generated_Image_s3dv35s3dv35s3dv.jpg',
   // Industry
-  biolab:               '/Gemini_Generated_Image_4ulfb34ulfb34ulf.png',
-  manufacturing_hub:    '/Gemini_Generated_Image_esnox6esnox6esno.png',
-  tourism_hub:          '/Gemini_Generated_Image_us5c1wus5c1wus5c.png',
-  regolith_3dprint:     '/Gemini_Generated_Image_udom1tudom1tudom.png',
+  biolab:               '/Gemini_Generated_Image_4ulfb34ulfb34ulf.jpg',
+  manufacturing_hub:    '/Gemini_Generated_Image_esnox6esnox6esno.jpg',
+  tourism_hub:          '/Gemini_Generated_Image_us5c1wus5c1wus5c.jpg',
+  regolith_3dprint:     '/Gemini_Generated_Image_udom1tudom1tudom.jpg',
   // Communication
-  lunar_comms_net:      '/Gemini_Generated_Image_ihkch5ihkch5ihkc.png',
-  fund_lnss_ground:     '/Gemini_Generated_Image_kmp0mskmp0mskmp0.png',
-  fund_comm_ground:     '/Gemini_Generated_Image_br0pbpbr0pbpbr0p.png',
+  lunar_comms_net:      '/Gemini_Generated_Image_ihkch5ihkch5ihkc.jpg',
+  fund_lnss_ground:     '/Gemini_Generated_Image_kmp0mskmp0mskmp0.jpg',
+  fund_comm_ground:     '/Gemini_Generated_Image_br0pbpbr0pbpbr0p.jpg',
+};
+
+// Phase-specific name/size overrides for "upgrading" assets
+// (assets that persist across phases with evolving names/sizes)
+const PHASE_OVERRIDES: Record<string, Partial<Record<string, { name: string; displaySize: number }>>> = {
+  surface_habitat_l: {
+    phase2: { name: '月面居住ユニット（小）', displaySize: 1.3 },
+    phase3: { name: '月面居住モジュール（中）', displaySize: 1.8 },
+  },
+  solar_power_l: {
+    phase2: { name: '太陽電池アレイ（初期）', displaySize: 1.1 },
+    phase3: { name: '大型太陽電池アレイ', displaySize: 1.4 },
+  },
+  isru_full: {
+    phase2: { name: 'ISRUパイロットプラント', displaySize: 1.2 },
+  },
 };
 
 // Partner badge constants
@@ -83,9 +94,14 @@ export function InfraElementComponent({ infra }: Props) {
   const color = CATEGORY_COLORS[infra.category] || '#9CA3AF';
   const { x, y } = toSVG(infra.position);
 
+  // Apply phase-specific name/size overrides for upgrading assets
+  const override = PHASE_OVERRIDES[infra.id]?.[currentPhase];
+  const displayName = override?.name ?? infra.name;
+  const displaySize = override?.displaySize ?? (infra.displaySize ?? 1);
+
   // Scale radius based on real-world size. Base r=16 = standard unit.
-  const r = Math.round(16 * (infra.displaySize ?? 1));
-  const fontSize = Math.max(7, Math.round(13 * Math.min(infra.displaySize ?? 1, 1.4)));
+  const r = Math.round(16 * displaySize);
+  const fontSize = Math.max(7, Math.round(13 * Math.min(displaySize, 1.4)));
 
   // Partner badges
   const partnerKeys = INFRA_PARTNERS[infra.id] ?? [];
@@ -97,8 +113,8 @@ export function InfraElementComponent({ infra }: Props) {
 
   const cgImage = INFRA_CG_IMAGES[infra.id];
 
-  // CG image: square bounding box sized by displaySize, bottom anchored at (x, y)
-  const sz = Math.min(Math.round(55 * (infra.displaySize ?? 1)), 130);
+  // CG image: square bounding box sized by displaySize (phase-overridable), bottom anchored at (x, y)
+  const sz = Math.min(Math.round(55 * displaySize), 130);
   const imgX = x - sz / 2;
   const imgY = y - sz;
 
@@ -178,7 +194,7 @@ export function InfraElementComponent({ infra }: Props) {
             fontFamily="'Noto Sans JP', sans-serif"
             fontWeight={isSelected ? 'bold' : 'normal'}
           >
-            {infra.name.length > 10 ? infra.name.slice(0, 9) + '…' : infra.name}
+            {displayName.length > 10 ? displayName.slice(0, 9) + '…' : displayName}
           </text>
 
           {/* 宇宙戦略基金バッジ */}
