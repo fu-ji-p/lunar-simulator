@@ -190,14 +190,14 @@ export function InfraElementComponent({ infra }: Props) {
 
           {/* Label */}
           <text
-            x={x} y={y + 10}
+            x={x} y={y + 11}
             textAnchor="middle"
             fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
-            fontSize="8"
+            fontSize="10"
             fontFamily="'Noto Sans JP', sans-serif"
             fontWeight={isSelected ? 'bold' : 'normal'}
           >
-            {displayName.length > 10 ? displayName.slice(0, 9) + '…' : displayName}
+            {displayName.length > 12 ? displayName.slice(0, 11) + '…' : displayName}
           </text>
 
           {/* 宇宙戦略基金バッジ */}
@@ -275,13 +275,13 @@ export function InfraElementComponent({ infra }: Props) {
           </text>
 
           {/* Label */}
-          <text x={x} y={y + r + 10}
+          <text x={x} y={y + r + 12}
             textAnchor="middle"
             fill={isSelected ? '#F9FAFB' : '#D1D5DB'}
-            fontSize="8"
+            fontSize="10"
             fontFamily="'Noto Sans JP', sans-serif"
             fontWeight={isSelected ? 'bold' : 'normal'}>
-            {displayName.length > 10 ? displayName.slice(0, 9) + '…' : displayName}
+            {displayName.length > 12 ? displayName.slice(0, 11) + '…' : displayName}
           </text>
 
           {/* 宇宙戦略基金バッジ */}

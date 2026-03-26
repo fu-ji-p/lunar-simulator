@@ -13,7 +13,7 @@ import { SpaceBackground } from './SpaceBackground';
 // IDs handled by GatewayLayer (orbital elements)
 const ORBITAL_IDS = new Set([
   'gateway_core', 'gateway_full', 'relay_satellite', 'relay_satellite_full', 'lunar_lander',
-  'fund_thz_satellite'
+  'fund_thz_satellite', 'fund_lnss_ground'
 ]);
 
 const SOURCE_META = {

@@ -634,22 +634,28 @@ export const INFRASTRUCTURE: InfraElement[] = [
   },
   {
     id: 'fund_lnss_ground',
-    name: '月測位基準局（LNSS）',
-    nameEn: 'Lunar Navigation Reference Station',
+    name: 'LNSS測位衛星システム',
+    nameEn: 'LNSS Navigation Satellites',
     category: 'communication',
-    icon: 'Radio',
-    emoji: '🗼',
-    position: { x: 40, y: 45 },
-    displaySize: 0.8,
-    description: '月面上の測位基準点。月周回測位衛星と連携し、月面でのcm〜m精度の自己位置把握を可能にする。',
+    icon: 'Satellite',
+    emoji: '🛰️',
+    position: { x: 10, y: 20 },
+    displaySize: 0.9,
+    description: 'JAXAが開発する月測位衛星システム（LNSS: Lunar Navigation Satellite System）。月周回軌道上の複数衛星でGPS相当の測位を月面全域に提供。NASAのLunaNetと相互運用。',
     source: 'fund',
     fundUrl: 'https://fund.jaxa.jp/techlist/theme15/',
     detail: {
-      purpose: '月面の人・ロボット・ローバーがリアルタイムに自己位置を把握するためのGPS相当インフラの地上基準点。',
-      technology: 'GNSS発展型測位信号受信装置、高精度時刻同期、月面LunaNet準拠送受信機。',
-      japanRole: 'JAXAが米欧のLunaNet構想に参画し、日本独自の測位技術で月測位システム標準化に貢献。',
-      specs: { '測位精度': '数cm〜m級', '連携衛星': 'LNSS周回衛星 × 複数機', 'カバー': '月面全域（衛星コンステ）' },
-      scenarioRef: '宇宙戦略基金 探査第一期「月測位システム技術」'
+      purpose: '月面・月周回の人・ロボット・ローバーにリアルタイム自己位置把握（cm〜m精度）を提供する、GPSの月版衛星航法システム。',
+      technology: '測位信号送信衛星（高精度原子時計搭載）、NASAのLunaNetアーキテクチャ準拠。フェーズ2で3機、フェーズ3以降で6機の衛星コンステレーションを構築。',
+      japanRole: 'JAXAが測位信号処理技術・LunaNet対応受信機の開発をリード。米欧との相互運用規格（LunaNet Interoperability Specification）策定に参画。月面GPS整備により日本の月探査アセットの自律航行能力を強化。',
+      specs: {
+        'フェーズ2（2030年代前半）': '3機（初期コンステレーション）',
+        'フェーズ3以降（2030年代後半〜）': '6機（フル運用）',
+        '測位精度': '数cm〜m級',
+        'LunaNet準拠': 'NASA・ESAと相互運用',
+        'カバレッジ': '月面全域',
+      },
+      scenarioRef: '宇宙戦略基金 探査第一期「月測位システム技術」、NASA LunaNet Interoperability Specification Rev.7'
     }
   },
   {

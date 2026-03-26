@@ -185,6 +185,56 @@ export function GatewayLayer({ onSelectInfra }: Props) {
         />
       )}
 
+      {/* LNSS Navigation Satellites (宇宙戦略基金) */}
+      {showFund && phase.activeInfraIds.includes('fund_lnss_ground') && (() => {
+        const satCount = (currentPhase === 'phase2') ? t('3機', '3 sats') : t('6機', '6 sats');
+        const isNew = phase.newInPhase.includes('fund_lnss_ground');
+        const isSelected = selectedInfraId === 'fund_lnss_ground';
+        return (
+          <motion.g
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            style={{ cursor: 'pointer' }}
+            onClick={() => onSelectInfra('fund_lnss_ground')}
+            aria-label="LNSS測位衛星システム"
+          >
+            {isSelected && (
+              <circle cx="100" cy="120" r="36" fill="#6366F1" opacity="0.12" />
+            )}
+            {isNew && (
+              <motion.circle
+                cx="100" cy="120" r="20"
+                fill="none" stroke={phase.color} strokeWidth="2"
+                initial={{ r: 14, opacity: 0.8 }}
+                animate={{ r: 32, opacity: 0 }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            )}
+            {/* CG LNSS satellite image — replace with generated image */}
+            <image
+              href="/lnss_satellites.jpg"
+              x="68" y="88"
+              width="64" height="64"
+              preserveAspectRatio="xMidYMid meet"
+              style={{ mixBlendMode: 'screen' as const, filter: 'drop-shadow(0 0 8px rgba(99,102,241,0.85)) brightness(1.05)' }}
+            />
+            <rect x="68" y="88" width="64" height="64" fill="transparent" />
+            {/* SSF badge */}
+            <image
+              href="/SSF_logo_white.png"
+              x="116" y="88"
+              width="20" height="10"
+              preserveAspectRatio="xMidYMid meet"
+              opacity="0.92"
+            />
+            <text x="100" y="162" textAnchor="middle" fill="#A5B4FC" fontSize="8" fontFamily="sans-serif">
+              {t('LNSS衛星', 'LNSS')} ({satCount})
+            </text>
+          </motion.g>
+        );
+      })()}
+
       {/* THz Water Resource Sensing Satellite (宇宙戦略基金) */}
       {showFund && phase.activeInfraIds.includes('fund_thz_satellite') && (
         <motion.g
