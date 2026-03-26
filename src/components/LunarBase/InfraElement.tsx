@@ -30,24 +30,43 @@ const CATEGORY_COLORS: Record<string, string> = {
 // CG image mapping: infra id → public image path
 const INFRA_CG_IMAGES: Record<string, string> = {
   // Habitat
-  surface_habitat_s:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
-  surface_habitat_m:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
-  surface_habitat_l:  '/Gemini_Generated_Image_uaxiipuaxiipuaxi.png',
+  surface_habitat_s:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
+  surface_habitat_m:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
+  surface_habitat_l:    '/Gemini_Generated_Image_ixusbtixusbtixus.png',
+  // Medical
+  medical_center:       '/Gemini_Generated_Image_ne9co3ne9co3ne9c.png',
   // Energy
-  solar_power_s:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
-  solar_power_m:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
-  solar_power_l:      '/Gemini_Generated_Image_coewiicoewiicoew.png',
-  nuclear_power:      '/Gemini_Generated_Image_gu2odqgu2odqgu2o.png',
+  solar_power_s:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
+  solar_power_m:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
+  solar_power_l:        '/Gemini_Generated_Image_629fd629fd629fd6.png',
+  nuclear_power:        '/Gemini_Generated_Image_2g3x4c2g3x4c2g3x.png',
+  fund_regen_fc:        '/Gemini_Generated_Image_38wbir38wbir38wb.png',
+  fund_am241_power:     '/Gemini_Generated_Image_p5gijkp5gijkp5gi.png',
   // ISRU
-  lupex:              '/Gemini_Generated_Image_r4xis3r4xis3r4xi.png',
-  isru_pilot:         '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
-  isru_full:          '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
-  propellant_plant:   '/Gemini_Generated_Image_y8gpzqy8gpzqy8gp.png',
-  mining_robot:       '/Gemini_Generated_Image_v0iw8fv0iw8fv0iw.png',
+  lupex:                '/Gemini_Generated_Image_7t8fkg7t8fkg7t8f.png',
+  isru_pilot:           '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
+  isru_full:            '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
+  propellant_plant:     '/Gemini_Generated_Image_b0c8spb0c8spb0c8.png',
+  mining_robot:         '/Gemini_Generated_Image_s2xyuos2xyuos2xy.png',
   // Exploration
-  pressurized_rover:  '/Gemini_Generated_Image_umj65eumj65eumj6.png',
+  slim:                 '/Gemini_Generated_Image_sh4cmnsh4cmnsh4c.png',
+  pressurized_rover:    '/Gemini_Generated_Image_ehuimlehuimlehui.png',
+  construction_robot:   '/Gemini_Generated_Image_vuob3evuob3evuob.png',
+  fund_precision_lander:'/Gemini_Generated_Image_h2e0geh2e0geh2e0.png',
+  // Science
+  seismometer_net:      '/Gemini_Generated_Image_heaxfjheaxfjheax.png',
+  lunar_telescope:      '/Gemini_Generated_Image_x617ksx617ksx617.png',
+  sample_return:        '/Gemini_Generated_Image_7gbdzj7gbdzj7gbd.png',
+  fund_infra_demo:      '/Gemini_Generated_Image_s3dv35s3dv35s3dv.png',
   // Industry
-  biolab:             '/Gemini_Generated_Image_4ulfb34ulfb34ulf.png',
+  biolab:               '/Gemini_Generated_Image_4ulfb34ulfb34ulf.png',
+  manufacturing_hub:    '/Gemini_Generated_Image_esnox6esnox6esno.png',
+  tourism_hub:          '/Gemini_Generated_Image_us5c1wus5c1wus5c.png',
+  regolith_3dprint:     '/Gemini_Generated_Image_udom1tudom1tudom.png',
+  // Communication
+  lunar_comms_net:      '/Gemini_Generated_Image_ihkch5ihkch5ihkc.png',
+  fund_lnss_ground:     '/Gemini_Generated_Image_kmp0mskmp0mskmp0.png',
+  fund_comm_ground:     '/Gemini_Generated_Image_br0pbpbr0pbpbr0p.png',
 };
 
 // Partner badge constants

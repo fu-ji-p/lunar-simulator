@@ -66,7 +66,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG Gateway station image */}
           <image
-            href="/Gemini_Generated_Image_q5o078q5o078q5o0.png"
+            href="/Gemini_Generated_Image_sav6pisav6pisav6.png"
             x="427"
             y="5"
             width="146"
@@ -111,7 +111,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG relay satellite image */}
           <image
-            href="/Gemini_Generated_Image_9la2sg9la2sg9la2.png"
+            href="/Gemini_Generated_Image_k0riblk0riblk0ri.png"
             x="708"
             y="52"
             width="84"
@@ -154,7 +154,7 @@ export function GatewayLayer({ onSelectInfra }: Props) {
           )}
           {/* CG lander image */}
           <image
-            href="/Gemini_Generated_Image_cuyshcuyshcuyshc.png"
+            href="/Gemini_Generated_Image_y4knh3y4knh3y4kn.png"
             x="316"
             y="210"
             width="68"
