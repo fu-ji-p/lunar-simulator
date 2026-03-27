@@ -15,6 +15,8 @@ interface SimulatorStore {
   showFund: boolean;
   /** UI言語 */
   lang: 'ja' | 'en';
+  /** アクティブな国シナリオ */
+  activeCountry: 'japan' | 'nasa';
 
   setPhase: (phase: PhaseId) => void;
   selectInfra: (id: string | null) => void;
@@ -26,6 +28,7 @@ interface SimulatorStore {
   toggleShowScenario: () => void;
   toggleShowFund: () => void;
   setLang: (lang: 'ja' | 'en') => void;
+  setCountry: (country: 'japan' | 'nasa') => void;
 }
 
 export const useSimulatorStore = create<SimulatorStore>((set) => ({
@@ -39,6 +42,7 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   showScenario: true,
   showFund: true,
   lang: 'ja',
+  activeCountry: 'japan',
 
   setPhase: (phase) => set({ currentPhase: phase, selectedInfraId: null, isAnimating: true }),
   selectInfra: (id) => set({ selectedInfraId: id }),
@@ -50,4 +54,5 @@ export const useSimulatorStore = create<SimulatorStore>((set) => ({
   toggleShowScenario: () => set((s) => ({ showScenario: !s.showScenario })),
   toggleShowFund: () => set((s) => ({ showFund: !s.showFund })),
   setLang: (lang) => set({ lang }),
+  setCountry: (country) => set({ activeCountry: country }),
 }));
