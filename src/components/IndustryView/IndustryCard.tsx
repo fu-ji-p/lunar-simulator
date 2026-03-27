@@ -33,9 +33,9 @@ export function IndustryCard({ industry }: Props) {
 
       {/* Row 1: title + phase badge */}
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-white text-xs font-bold leading-tight">{name}</h3>
+        <h3 className="text-white text-sm font-bold leading-tight">{name}</h3>
         <span
-          className="text-[9px] px-1.5 py-0.5 rounded font-spacemono shrink-0"
+          className="text-xs px-1.5 py-0.5 rounded font-spacemono shrink-0"
           style={{ backgroundColor: `${phaseColor}20`, color: phaseColor, border: `1px solid ${phaseColor}40` }}
         >
           P{industry.phase}
@@ -43,12 +43,12 @@ export function IndustryCard({ industry }: Props) {
       </div>
 
       {/* Row 2: description */}
-      <p className="text-[#9CA3AF] text-[10px] leading-relaxed">{description}</p>
+      <p className="text-[#9CA3AF] text-xs leading-relaxed">{description}</p>
 
       {/* Row 3: example tags */}
       <div className="flex flex-wrap gap-1">
         {examples.slice(0, 3).map(ex => (
-          <span key={ex} className="text-[9px] bg-white/5 text-[#9CA3AF] px-1.5 py-0.5 rounded">
+          <span key={ex} className="text-xs bg-white/5 text-[#9CA3AF] px-1.5 py-0.5 rounded">
             {ex}
           </span>
         ))}
@@ -56,7 +56,7 @@ export function IndustryCard({ industry }: Props) {
 
       {/* Row 4: revenue + source badge */}
       <div className="flex items-center justify-between mt-0.5 gap-2">
-        <span className="text-[9px] text-[#6B7280]">
+        <span className="text-xs text-[#6B7280]">
           {industry.source === 'scenario'
             ? t('収益: ', EN.revenuePrefix)
             : t('制度: ', EN.policyPrefix)
@@ -83,11 +83,11 @@ export function IndustryCard({ industry }: Props) {
                   borderRadius: '50%',
                 }}
               />
-              <span className="text-[8px]" style={{ color: sourceMeta.color }}>SSF</span>
+              <span className="text-[10px]" style={{ color: sourceMeta.color }}>SSF</span>
             </span>
           ) : (
             <span
-              className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
+              className="text-[10px] px-1.5 py-0.5 rounded-full font-medium"
               style={{ backgroundColor: sourceMeta.bg, color: sourceMeta.color, border: `1px solid ${sourceMeta.color}40` }}
             >
               {lang === 'en' ? sourceMeta.labelEn : sourceMeta.label}
@@ -98,7 +98,7 @@ export function IndustryCard({ industry }: Props) {
               href={industry.fundUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[8px] text-[#F59E0B] hover:text-[#FCD34D] transition-colors underline underline-offset-1"
+              className="text-[10px] text-[#F59E0B] hover:text-[#FCD34D] transition-colors underline underline-offset-1"
               onClick={e => e.stopPropagation()}
             >
               {t('詳細→', EN.detailsLink)}

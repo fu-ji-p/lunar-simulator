@@ -39,18 +39,18 @@ function TechBridgeCard({ bridge }: { bridge: TechBridge }) {
           <span className="text-2xl">{bridge.icon}</span>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-white">{title}</span>
+              <span className="text-base font-medium text-white">{title}</span>
               <span
-                className="text-[8px] px-1.5 py-0.5 rounded-full font-spacemono"
+                className="text-[10px] px-1.5 py-0.5 rounded-full font-spacemono"
                 style={{ backgroundColor: `${bridge.color}25`, color: bridge.color }}
               >
                 P{bridge.enabledFromPhase}〜
               </span>
             </div>
             <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="text-[9px] text-[#94A3B8]">🌕 {lunarLabel}</span>
-              <span className="text-[9px] text-[#6B7280]">→</span>
-              <span className="text-[9px] text-[#F97316]">🔴 {marsLabel}</span>
+              <span className="text-xs text-[#94A3B8]">🌕 {lunarLabel}</span>
+              <span className="text-xs text-[#6B7280]">→</span>
+              <span className="text-xs text-[#F97316]">🔴 {marsLabel}</span>
             </div>
           </div>
         </div>
@@ -81,13 +81,13 @@ function TechBridgeCard({ bridge }: { bridge: TechBridge }) {
                 >
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="text-base">🌕</span>
-                    <span className="text-[10px] font-medium" style={{ color: MOON_COLOR }}>
+                    <span className="text-xs font-medium" style={{ color: MOON_COLOR }}>
                       {t('月面での実証', EN.lunarDemoLabel)}
                     </span>
                   </div>
-                  <p className="text-[10px] text-[#D1D5DB] leading-relaxed mb-2">{lunarDesc}</p>
+                  <p className="text-xs text-[#D1D5DB] leading-relaxed mb-2">{lunarDesc}</p>
                   <div
-                    className="text-[9px] px-2 py-1 rounded leading-snug"
+                    className="text-xs px-2 py-1 rounded leading-snug"
                     style={{ backgroundColor: `${MOON_COLOR}15`, color: MOON_COLOR }}
                   >
                     📌 {lunarMilestone}
@@ -101,13 +101,13 @@ function TechBridgeCard({ bridge }: { bridge: TechBridge }) {
                 >
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="text-base">🔴</span>
-                    <span className="text-[10px] font-medium" style={{ color: MARS_COLOR }}>
+                    <span className="text-xs font-medium" style={{ color: MARS_COLOR }}>
                       {t('火星への応用', EN.marsApplicationLabel)}
                     </span>
                   </div>
-                  <p className="text-[10px] text-[#D1D5DB] leading-relaxed mb-2">{marsDesc}</p>
+                  <p className="text-xs text-[#D1D5DB] leading-relaxed mb-2">{marsDesc}</p>
                   <div
-                    className="text-[9px] px-2 py-1 rounded leading-snug"
+                    className="text-xs px-2 py-1 rounded leading-snug"
                     style={{ backgroundColor: `${MARS_COLOR}15`, color: MARS_COLOR }}
                   >
                     ⚠️ {marsChallenge}
@@ -121,10 +121,10 @@ function TechBridgeCard({ bridge }: { bridge: TechBridge }) {
                 style={{ borderColor: `${bridge.color}25`, backgroundColor: `${bridge.color}0C` }}
               >
                 <div className="flex items-start gap-2">
-                  <span className="text-[10px] font-medium shrink-0" style={{ color: bridge.color }}>
+                  <span className="text-xs font-medium shrink-0" style={{ color: bridge.color }}>
                     {t('技術継承', EN.techTransferLabel)}
                   </span>
-                  <span className="text-[10px] text-[#9CA3AF] leading-relaxed">→ {bridgeText}</span>
+                  <span className="text-xs text-[#9CA3AF] leading-relaxed">→ {bridgeText}</span>
                 </div>
               </div>
 
@@ -145,13 +145,13 @@ function MissionComparisonTable() {
   return (
     <div className="bg-[#1F2937] rounded-lg border border-white/10 overflow-hidden">
       <div className="px-4 py-3 border-b border-white/10">
-        <h3 className="text-white text-xs font-bold font-orbitron tracking-wider">
+        <h3 className="text-white text-sm font-bold font-orbitron tracking-wider">
           {t('月面 vs 火星 ミッション比較', EN.marsComparisonTitle)}
         </h3>
       </div>
       <div className="divide-y divide-white/5">
         {/* Header */}
-        <div className="grid grid-cols-3 px-4 py-2 text-[9px] uppercase tracking-wider text-[#6B7280]">
+        <div className="grid grid-cols-3 px-4 py-2 text-xs uppercase tracking-wider text-[#6B7280]">
           <span>{t('項目', EN.compColItem)}</span>
           <span className="text-center" style={{ color: MOON_COLOR }}>
             {t('🌕 月面（フェーズ4）', EN.compColMoon)}
@@ -170,9 +170,9 @@ function MissionComparisonTable() {
               key={item.label}
               className="grid grid-cols-3 px-4 py-2.5 items-center hover:bg-white/3 transition-colors"
             >
-              <span className="text-[10px] text-[#9CA3AF]">{label}</span>
-              <span className="text-[10px] text-center font-spacemono" style={{ color: item.moonColor }}>{moon}</span>
-              <span className="text-[10px] text-center font-spacemono" style={{ color: item.marsColor }}>{mars}</span>
+              <span className="text-xs text-[#9CA3AF]">{label}</span>
+              <span className="text-xs text-center font-spacemono" style={{ color: item.moonColor }}>{moon}</span>
+              <span className="text-xs text-center font-spacemono" style={{ color: item.marsColor }}>{mars}</span>
             </div>
           );
         })}
@@ -213,10 +213,10 @@ function MissionTimelineBanner() {
             >
               {step.icon}
             </div>
-            <span className="text-[10px] font-medium text-white text-center">{step.label}</span>
-            <span className="text-[9px] text-[#6B7280] text-center">{step.sub}</span>
+            <span className="text-xs font-medium text-white text-center">{step.label}</span>
+            <span className="text-xs text-[#6B7280] text-center">{step.sub}</span>
             <span
-              className="text-[8px] text-center mt-0.5 leading-snug max-w-[70px]"
+              className="text-[10px] text-center mt-0.5 leading-snug max-w-[70px]"
               style={{ color: step.color }}
             >
               {step.desc}
@@ -244,16 +244,16 @@ export function MarsView() {
         <div className="flex items-start gap-3">
           <span className="text-4xl">🔴</span>
           <div>
-            <h2 className="font-orbitron text-white text-sm font-bold tracking-wider mb-1">
+            <h2 className="font-orbitron text-white text-base font-bold tracking-wider mb-1">
               {t('火星展望 — 月は火星のテストベッド', EN.marsHeroTitle)}
             </h2>
-            <p className="text-[#D1D5DB] text-xs leading-relaxed">
+            <p className="text-[#D1D5DB] text-sm leading-relaxed">
               {t(
                 'JAXAシナリオは月面開発を目的とするのみでなく、その先にある有人火星探査への技術的架け橋として位置づけています。月面で実証されたすべての技術が、宇宙探査の最終フロンティアへと繋がります。',
                 EN.marsHeroBody,
               )}
             </p>
-            <p className="text-[9px] text-[#6B7280] mt-1">
+            <p className="text-xs text-[#6B7280] mt-1">
               {t('出典：国際宇宙探査シナリオ案2025（EZA-2025001）全体方針', EN.marsHeroSource)}
             </p>
           </div>
@@ -262,7 +262,7 @@ export function MarsView() {
 
       {/* Mission timeline */}
       <div>
-        <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
+        <h3 className="text-[#9CA3AF] text-xs uppercase tracking-wider mb-3">
           {t('月面〜火星 ロードマップ', EN.roadmapTitle)}
         </h3>
         <MissionTimelineBanner />
@@ -270,7 +270,7 @@ export function MarsView() {
 
       {/* Tech bridge cards */}
       <div>
-        <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
+        <h3 className="text-[#9CA3AF] text-xs uppercase tracking-wider mb-3">
           {t('技術継承マップ（月面実証 → 火星応用）', EN.techBridgeTitle)}
         </h3>
         <div className="space-y-3">
@@ -284,7 +284,7 @@ export function MarsView() {
       <MissionComparisonTable />
 
       {/* Footer */}
-      <div className="text-[#4B5563] text-[10px] text-center py-2">
+      <div className="text-[#4B5563] text-xs text-center py-2">
         {t('出典：JAXA「日本の国際宇宙探査シナリオ案2025」（EZA-2025001）', EN.marsFooter)}
       </div>
 

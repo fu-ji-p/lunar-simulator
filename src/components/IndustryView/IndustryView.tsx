@@ -35,17 +35,17 @@ export function IndustryView() {
 
       {/* Header */}
       <div>
-        <h2 className="font-orbitron text-white text-sm font-bold mb-1">
+        <h2 className="font-orbitron text-white text-base font-bold mb-1">
           {t('産業ビジョン俯瞰', EN.industryTitle)}
         </h2>
-        <p className="text-[#9CA3AF] text-xs">
+        <p className="text-[#9CA3AF] text-sm">
           {t('JAXAシナリオ3.5節に基づく月面経済のロードマップ', EN.industrySubtitle)}
         </p>
       </div>
 
       {/* 情報源フィルター */}
       <div className="bg-[#1A2235] rounded-lg border border-white/10 px-4 py-3">
-        <p className="text-[#6B7280] text-[9px] uppercase tracking-wider mb-2">
+        <p className="text-[#6B7280] text-xs uppercase tracking-wider mb-2">
           {t('情報源', EN.sourceLabel)}
         </p>
         <div className="flex gap-2">
@@ -57,7 +57,7 @@ export function IndustryView() {
               <button
                 key={src}
                 onClick={toggle}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all border"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all border"
                 style={
                   isOn
                     ? { backgroundColor: meta.activeBg, color: meta.activeColor, borderColor: `${meta.activeColor}50` }
@@ -67,11 +67,11 @@ export function IndustryView() {
               >
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: isOn ? meta.activeColor : '#4B5563' }} />
                 {lang === 'en' ? meta.enLabel : meta.jaLabel}
-                {!isOn && <span className="text-[9px] opacity-60">{t('（非表示）', ' (off)')}</span>}
+                {!isOn && <span className="text-xs opacity-60">{t('（非表示）', ' (off)')}</span>}
               </button>
             );
           })}
-          <span className="ml-auto text-[10px] text-[#4B5563] self-center">
+          <span className="ml-auto text-xs text-[#4B5563] self-center">
             {EN.itemsShown(filteredIndustries.length)}
           </span>
         </div>
@@ -98,10 +98,10 @@ export function IndustryView() {
             <div className="flex items-center gap-2 border-b border-white/10 pb-2">
               <span className="text-xl">{zone.icon}</span>
               <div>
-                <h3 className="text-white text-sm font-bold">{label}</h3>
-                <p className="text-[#9CA3AF] text-[10px]">{desc}</p>
+                <h3 className="text-white text-base font-bold">{label}</h3>
+                <p className="text-[#9CA3AF] text-xs">{desc}</p>
               </div>
-              <span className="ml-auto text-[#6B7280] text-xs">
+              <span className="ml-auto text-[#6B7280] text-sm">
                 {items.length}{t('件', '')}
               </span>
             </div>
@@ -116,7 +116,7 @@ export function IndustryView() {
       })}
 
       {/* Footer note */}
-      <div className="text-[#4B5563] text-[10px] text-center py-4">
+      <div className="text-[#4B5563] text-xs text-center py-4">
         {t(
           '出典：JAXA「日本の国際宇宙探査シナリオ案2025」（EZA-2025001）3.5節 ／ JAXA宇宙戦略基金',
           EN.footerNote,

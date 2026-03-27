@@ -35,7 +35,7 @@ function HealthCategoryCard({
       >
         <div className="flex items-center gap-3">
           <span className="text-2xl">{category.icon}</span>
-          <span className="text-sm font-medium text-white">{title}</span>
+          <span className="text-base font-medium text-white">{title}</span>
         </div>
         {isOpen
           ? <ChevronDown size={14} className="text-[#6B7280] shrink-0" />
@@ -56,13 +56,13 @@ function HealthCategoryCard({
 
               {/* Risks */}
               <div className="pt-3">
-                <h4 className="text-[10px] uppercase tracking-wider text-[#9CA3AF] mb-2">
+                <h4 className="text-xs uppercase tracking-wider text-[#9CA3AF] mb-2">
                   {t('リスク', hd.risksLabel)}
                 </h4>
                 <ul className="space-y-1.5">
                   {risks.map((risk, ri) => (
-                    <li key={ri} className="flex items-start gap-2 text-[11px] text-[#D1D5DB] leading-relaxed">
-                      <span className="shrink-0 mt-0.5 text-[10px]" style={{ color: category.color }}>▸</span>
+                    <li key={ri} className="flex items-start gap-2 text-sm text-[#D1D5DB] leading-relaxed">
+                      <span className="shrink-0 mt-0.5 text-xs" style={{ color: category.color }}>▸</span>
                       {risk}
                     </li>
                   ))}
@@ -71,7 +71,7 @@ function HealthCategoryCard({
 
               {/* Countermeasures */}
               <div>
-                <h4 className="text-[10px] uppercase tracking-wider text-[#9CA3AF] mb-2">
+                <h4 className="text-xs uppercase tracking-wider text-[#9CA3AF] mb-2">
                   {t('対策・技術', hd.countermeasuresLabel)}
                 </h4>
                 <div className="space-y-1.5">
@@ -87,7 +87,7 @@ function HealthCategoryCard({
                           onClick={() => setExpandedMeasure(isExpanded ? null : `${categoryIndex}-${ci}`)}
                           className="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-white/5 transition-colors"
                         >
-                          <span className="text-[11px] text-[#E5E7EB] font-medium">{cm.name}</span>
+                          <span className="text-sm text-[#E5E7EB] font-medium">{cm.name}</span>
                           {isExpanded
                             ? <ChevronDown size={11} className="text-[#6B7280] shrink-0" />
                             : <ChevronRight size={11} className="text-[#6B7280] shrink-0" />
@@ -103,7 +103,7 @@ function HealthCategoryCard({
                               style={{ overflow: 'hidden' }}
                             >
                               <p
-                                className="px-3 pb-3 pt-1 text-[10px] leading-relaxed border-t"
+                                className="px-3 pb-3 pt-1 text-xs leading-relaxed border-t"
                                 style={{ borderColor: `${category.color}15`, color: '#9CA3AF' }}
                               >
                                 {cm.detail}
@@ -162,8 +162,8 @@ function EmergencyTimelineSection() {
         <div className="flex items-center gap-2">
           <span className="text-xl">🚁</span>
           <div>
-            <h3 className="text-sm font-medium text-white">{title}</h3>
-            <p className="text-[10px] text-[#9CA3AF]">{subtitle}</p>
+            <h3 className="text-base font-medium text-white">{title}</h3>
+            <p className="text-xs text-[#9CA3AF]">{subtitle}</p>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@ function EmergencyTimelineSection() {
               return (
                 <div key={i} className="flex items-start gap-3 relative">
                   <div className="w-16 shrink-0 text-right">
-                    <span className="text-[10px] font-spacemono font-bold" style={{ color: tl.color }}>
+                    <span className="text-xs font-spacemono font-bold" style={{ color: tl.color }}>
                       {step.time}
                     </span>
                   </div>
@@ -214,9 +214,9 @@ function EmergencyTimelineSection() {
                   </div>
 
                   <div className="flex-1 pb-3">
-                    <p className="text-[11px] text-[#D1D5DB] leading-snug">{action}</p>
+                    <p className="text-sm text-[#D1D5DB] leading-snug">{action}</p>
                     <span
-                      className="text-[9px] px-1.5 py-0.5 rounded-full inline-block mt-1"
+                      className="text-xs px-1.5 py-0.5 rounded-full inline-block mt-1"
                       style={{ backgroundColor: `${locationColor}20`, color: locationColor }}
                     >
                       {location}
@@ -228,10 +228,10 @@ function EmergencyTimelineSection() {
           </div>
         </div>
 
-        <p className="text-[#4B5563] text-[9px] mt-3">
+        <p className="text-[#4B5563] text-xs mt-3">
           {t('※ 所要時間は軌道条件により変動。最短シナリオを示す（JAXA資料参照）', hd.emergencyNote1)}
         </p>
-        <p className="text-[#4B5563] text-[9px]">
+        <p className="text-[#4B5563] text-xs">
           {lang === 'en'
             ? hd.emergencyTotalHours(totalHours)
             : `※ 総帰還時間：約${totalHours}時間（約4日間）`
@@ -253,10 +253,10 @@ export function HealthView() {
 
       {/* Header */}
       <div>
-        <h2 className="font-orbitron text-white text-sm font-bold mb-1">
+        <h2 className="font-orbitron text-white text-base font-bold mb-1">
           {t('クルー健康管理・生活環境', hd.headerTitle)}
         </h2>
-        <p className="text-[#9CA3AF] text-xs">
+        <p className="text-[#9CA3AF] text-sm">
           {t('JAXAシナリオ 7.10節「有人宇宙滞在・拠点システム技術」に基づく', hd.headerSubtitle)}
         </p>
       </div>
@@ -274,10 +274,10 @@ export function HealthView() {
             style={{ borderColor: `${stat.color}30`, backgroundColor: `${stat.color}0D` }}
           >
             <div className="text-xl mb-1">{stat.icon}</div>
-            <div className="font-spacemono text-sm font-bold" style={{ color: stat.color }}>
+            <div className="font-spacemono text-base font-bold" style={{ color: stat.color }}>
               {t(stat.valueJa, stat.value)}
             </div>
-            <div className="text-[#9CA3AF] text-[10px]">
+            <div className="text-[#9CA3AF] text-xs">
               {t(stat.labelJa, stat.labelEn)}
             </div>
           </div>
@@ -295,7 +295,7 @@ export function HealthView() {
       <EmergencyTimelineSection />
 
       {/* Footer */}
-      <div className="text-[#4B5563] text-[10px] text-center py-2">
+      <div className="text-[#4B5563] text-xs text-center py-2">
         {t('出典：JAXA「日本の国際宇宙探査シナリオ案2025」（EZA-2025001）7.10節', hd.footerNote)}
       </div>
     </div>

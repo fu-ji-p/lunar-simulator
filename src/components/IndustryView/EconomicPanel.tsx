@@ -22,10 +22,10 @@ export function EconomicPanel({ filterPhase }: Props) {
     <div className="bg-[#1F2937] rounded-lg overflow-hidden border border-white/10">
       {/* Header */}
       <div className="px-4 py-3 border-b border-white/10">
-        <h2 className="font-orbitron text-white text-xs font-bold tracking-wider">
+        <h2 className="font-orbitron text-white text-sm font-bold tracking-wider">
           💰 {t('経済規模・産業波及予測', ec.headerTitle)}
         </h2>
-        <p className="text-[#9CA3AF] text-[10px] mt-0.5">
+        <p className="text-[#9CA3AF] text-xs mt-0.5">
           {t('国際宇宙探査シナリオ案2025 第3.5節に基づく試算', ec.headerSubtitle)}
         </p>
       </div>
@@ -34,7 +34,7 @@ export function EconomicPanel({ filterPhase }: Props) {
 
         {/* ── 1. 民間投資額の推移 ── */}
         <div>
-          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
+          <h3 className="text-[#9CA3AF] text-xs uppercase tracking-wider mb-3">
             {t('民間投資額の推移（累計・試算）', ec.investmentTitle)}
           </h3>
           <div className="space-y-3">
@@ -55,23 +55,23 @@ export function EconomicPanel({ filterPhase }: Props) {
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[9px] font-spacemono font-bold" style={{ color }}>
+                      <span className="text-sm font-spacemono font-bold" style={{ color }}>
                         {phase.phaseLabel}
                       </span>
-                      <span className="text-[9px] text-[#6B7280]">{period}</span>
+                      <span className="text-xs text-[#6B7280]">{period}</span>
                       <span
-                        className="text-[8px] px-1.5 py-0.5 rounded-full"
+                        className="text-[10px] px-1.5 py-0.5 rounded-full"
                         style={{ backgroundColor: `${color}20`, color }}
                       >
                         {driver}
                       </span>
                       {!active && (
-                        <span className="text-[8px] text-[#4B5563]">
+                        <span className="text-[10px] text-[#4B5563]">
                           {t('未到達', ec.notReached)}
                         </span>
                       )}
                     </div>
-                    <span className="text-xs font-spacemono font-bold" style={{ color }}>
+                    <span className="text-sm font-spacemono font-bold" style={{ color }}>
                       ${phase.totalBillionUSD}B
                     </span>
                   </div>
@@ -86,19 +86,19 @@ export function EconomicPanel({ filterPhase }: Props) {
                       }}
                     />
                   </div>
-                  <p className="text-[#6B7280] text-[9px] mt-1">{keyMilestone}</p>
+                  <p className="text-[#6B7280] text-xs mt-1">{keyMilestone}</p>
                 </div>
               );
             })}
           </div>
-          <p className="text-[#4B5563] text-[9px] mt-2">
+          <p className="text-[#4B5563] text-xs mt-2">
             {t('※ 複数の宇宙経済調査レポートおよびシナリオを参考にした概算値', ec.investmentNote)}
           </p>
         </div>
 
         {/* ── 2. 主要市場セグメント ── */}
         <div>
-          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
+          <h3 className="text-[#9CA3AF] text-xs uppercase tracking-wider mb-3">
             {t('主要市場セグメント（Phase 4 想定規模）', ec.marketTitle)}
           </h3>
           <div className="grid grid-cols-3 gap-2">
@@ -121,14 +121,14 @@ export function EconomicPanel({ filterPhase }: Props) {
                   <div className="text-xl mb-1" style={{ filter: active ? 'none' : 'grayscale(1)' }}>
                     {seg.icon}
                   </div>
-                  <div className="text-[9px] text-[#D1D5DB] leading-snug mb-1 whitespace-pre-line">
+                  <div className="text-xs text-[#D1D5DB] leading-snug mb-1 whitespace-pre-line">
                     {name}
                   </div>
-                  <div className="font-spacemono text-sm font-bold" style={{ color }}>
+                  <div className="font-spacemono text-base font-bold" style={{ color }}>
                     ${seg.billionUSD}B
                   </div>
                   <div
-                    className="text-[8px] px-1 py-0.5 rounded-full inline-block mt-1"
+                    className="text-[10px] px-1 py-0.5 rounded-full inline-block mt-1"
                     style={{ backgroundColor: `${color}20`, color }}
                   >
                     P{seg.phase}〜
@@ -141,7 +141,7 @@ export function EconomicPanel({ filterPhase }: Props) {
 
         {/* ── 3. スピンオフ産業 ── */}
         <div>
-          <h3 className="text-[#9CA3AF] text-[10px] uppercase tracking-wider mb-3">
+          <h3 className="text-[#9CA3AF] text-xs uppercase tracking-wider mb-3">
             {t('地球へのスピンオフ産業', ec.spinoffTitle)}
           </h3>
           <div className="space-y-2">
@@ -164,7 +164,7 @@ export function EconomicPanel({ filterPhase }: Props) {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-base">{spinoff.icon}</span>
-                      <span className="text-[11px] text-[#D1D5DB] font-medium">{name}</span>
+                      <span className="text-sm text-[#D1D5DB] font-medium">{name}</span>
                     </div>
                     {isOpen
                       ? <ChevronDown size={12} className="text-[#6B7280] shrink-0" />
@@ -181,14 +181,14 @@ export function EconomicPanel({ filterPhase }: Props) {
                         {applications.map(app => (
                           <span
                             key={app}
-                            className="text-[9px] px-1.5 py-0.5 rounded"
+                            className="text-xs px-1.5 py-0.5 rounded"
                             style={{ backgroundColor: `${spinoff.color}15`, color: spinoff.color }}
                           >
                             {app}
                           </span>
                         ))}
                       </div>
-                      <p className="text-[10px] leading-relaxed" style={{ color: spinoff.color }}>
+                      <p className="text-xs leading-relaxed" style={{ color: spinoff.color }}>
                         → {impact}
                       </p>
                     </div>
