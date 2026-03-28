@@ -125,7 +125,7 @@ export const NASA_ASSETS: NASAAsset[] = [
     },
     position: { x: 24, y: 59 },
     displaySize: 0.85,
-    icon: '🚁',
+    cgImage: '/Gemini_Generated_Image_ekruciekruciekru.png',
     type: 'drone',
     source: 'commercial',
     phaseIntroduced: 1,
