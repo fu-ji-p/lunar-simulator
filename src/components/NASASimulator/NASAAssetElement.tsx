@@ -58,13 +58,17 @@ export function NASAAssetElement({ asset, isSelected, isNew, phaseColor, onSelec
       )}
 
       {asset.cgImage ? (
-        <image
-          href={asset.cgImage}
-          x={imgX} y={imgY}
-          width={sz} height={sz}
-          preserveAspectRatio="xMidYMid meet"
-          style={{ mixBlendMode: 'screen' as const, filter: `drop-shadow(0 0 6px ${color}CC) brightness(1.05)` }}
-        />
+        <g>
+          {/* Dark background ensures screen blend mode renders correctly on bright moon surface */}
+          <rect x={imgX} y={imgY} width={sz} height={sz} fill="rgba(0,0,0,0.82)" rx="3" />
+          <image
+            href={asset.cgImage}
+            x={imgX} y={imgY}
+            width={sz} height={sz}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ mixBlendMode: 'screen' as const, filter: `drop-shadow(0 0 6px ${color}CC) brightness(1.1)` }}
+          />
+        </g>
       ) : (
         // Emoji fallback
         <g>
