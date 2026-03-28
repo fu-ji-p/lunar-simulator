@@ -59,8 +59,18 @@ export function NASAAssetElement({ asset, isSelected, isNew, phaseColor, onSelec
 
       {asset.cgImage ? (
         <g>
-          {/* Dark background ensures screen blend mode renders correctly on bright moon surface */}
-          <rect x={imgX} y={imgY} width={sz} height={sz} fill="rgba(0,0,0,0.82)" rx="3" />
+          <defs>
+            <radialGradient id={`nasa-bg-${asset.id}`} cx="50%" cy="50%" r="50%">
+              <stop offset="25%" stopColor="black" stopOpacity="0.80" />
+              <stop offset="100%" stopColor="black" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {/* Radial dark background: solid center fading to transparent edges */}
+          <ellipse
+            cx={x} cy={y - sz / 2}
+            rx={sz / 2 + 4} ry={sz / 2 + 4}
+            fill={`url(#nasa-bg-${asset.id})`}
+          />
           <image
             href={asset.cgImage}
             x={imgX} y={imgY}
