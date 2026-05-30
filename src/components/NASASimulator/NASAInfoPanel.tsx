@@ -145,8 +145,8 @@ export function NASAInfoPanel({ phase, selectedAsset, onClose }: Props) {
 
           {/* Footer */}
           <div className="text-[#4B5563] text-xs text-center py-2 border-t border-white/5">
-            Source: NASA Ignition — March 24, 2026<br />
-            nasa.gov/ignition
+            Source: NASA Moon Base — Updated May 27, 2026<br />
+            nasa.gov/moonbase
           </div>
         </div>
       )}

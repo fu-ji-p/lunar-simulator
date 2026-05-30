@@ -108,13 +108,13 @@ function App() {
               <span className="text-2xl">🚀</span>
               <div>
                 <h1 className="font-orbitron text-white text-sm font-bold tracking-wider">NASA IGNITION</h1>
-                <p className="text-[#9CA3AF] text-xs">Moon Base Development Plan — Announced March 24, 2026</p>
+                <p className="text-[#9CA3AF] text-xs">Moon Base — Updated May 27, 2026</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <a href="https://www.nasa.gov/ignition/" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.nasa.gov/moonbase/" target="_blank" rel="noopener noreferrer"
                 className="text-xs text-[#60A5FA] hover:text-blue-300 transition-colors underline">
-                nasa.gov/ignition ↗
+                nasa.gov/moonbase ↗
               </a>
               <div className="flex items-center gap-1.5 text-xs">
                 <span className="w-2 h-2 rounded-full bg-[#E53E3E] animate-pulse" />
