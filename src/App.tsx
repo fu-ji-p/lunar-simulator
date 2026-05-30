@@ -42,6 +42,20 @@ function App() {
           <span className="font-orbitron tracking-wider">NASA</span>
           <span className="text-xs opacity-70">IGNITION 2026</span>
         </button>
+
+        {/* Ko-fi donation button */}
+        <div className="ml-auto">
+          <a
+            href="https://ko-fi.com/fu_ji_p"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all border border-[#FFD042]/30 text-[#FFD042] hover:bg-[#FFD042]/10 hover:border-[#FFD042]/60"
+            title="このアプリを支援する ☕"
+          >
+            <span>☕</span>
+            <span className="font-orbitron tracking-wider">Support</span>
+          </a>
+        </div>
       </div>
 
       {activeCountry === 'japan' ? (
